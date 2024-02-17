@@ -241,12 +241,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPharmacyType(): ?bool
+    public function getPharmacytype(): ?bool
     {
         return $this->pharmacytype;
     }
     
-    public function setPharmacyType(?bool $pharmacytype): static
+    public function setPharmacytype(?bool $pharmacytype): static
     {
         $this->pharmacytype = $pharmacytype;
     

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   //calendar input
   document.addEventListener('DOMContentLoaded', function () {
-    flatpickr("#registration_form_birthdate", {
+    flatpickr(".birthdate-input", {
       dateFormat: "Y-m-d",
       // You can add more options if needed
     });
