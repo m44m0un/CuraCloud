@@ -1,0 +1,91 @@
+{% extends 'crud.html.twig' %}
+
+{% block table %}
+
+    <table class="datatables-users table border-top">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>PhoneNumber</th>
+                <th>Inscription</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                
+                {% if user.roles is defined and 'ROLE_PATIENT' in user.roles %}
+                   <td class=""> <span class="badge bg-label-primary me-1">Patient</span>
+                {% elseif user.roles is defined and 'ROLE_DOCTOR' in user.roles %}
+                   <td><span class="badge bg-label-success me-1">Doctor</span>
+                {% elseif user.roles is defined and 'ROLE_PHARMACY' in user.roles %}
+                   <td><span class="badge bg-label-info me-1">Pharmacy</span>
+                {% elseif user.roles is defined and 'ROLE_RADIOLOGY' in user.roles %}
+                   <td><span class="badge bg-label-warning me-1"> Radiology</span>
+                {% elseif user.roles is defined and 'ROLE_LAB' in user.roles %}
+                   <td> <span class="badge bg-label-warning me-1">Laboratory</span>
+                {% else %}
+                   <td> No specific role
+                {% endif %}
+                </td>
+                <td>{{ user.phoneNumber }}</td>
+                {# <td>{{ user.gender ? 'Yes' : 'No' }}</td> #}
+                <td>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <div class="d-inline-block text-nowrap">
+                        <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_edit', {'id': user.id}) }}"><i class="bx bx-edit"></i></a></button>
+                        <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_show', {'id': user.id}) }}"><i class="bx bx-dots-vertical-rounded me-2"></i></a></button>    
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block body %}
+    {{ form_start(form,{'attr': {'class': 'add-new-user pt-0'}}) }}
+        <div class="mb-3">
+          <label class="form-label">First Name</label>
+          {# <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" /> #}
+          {{ form_widget(form.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'John'} }) }}                         
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Last Name</label>
+          {# <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail" /> #}
+          {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Doe'} }) }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          {# <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" /> #}
+          {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'john.doe@gmail.com'} }) }}                                 
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          {# <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName" /> #}
+          {{ form_widget(form.password, { 'attr': {'class': 'form-control', 'placeholder': '············'} }) }}                                 
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          {# <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName" /> #}
+          {{ form_widget(form.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}                                 
+        </div>
+        <div class="mb-3">
+            {{ form_label(form.roles, 'Roles', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form-select', 'multiple': 'multiple', 'aria-label': 'multiple select example'}}) }}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+    {{ form_end(form) }}
+{% endblock %}
