@@ -1,0 +1,21 @@
+{% extends 'editBlog.html.twig' %}
+
+{% block title %}New Blog{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+     <h4 class="font-alt mb-0">Create new Blog</h4>
+     <hr class="divider-w mt-10 mb-20">
+
+    {{ include('blog/_form.html.twig') }}
+
+    
+    <button class="btn btn-g btn-round" type="submit"><a href="{{ path('app_blog_index') }}">back to list</a></button>
+    </div>
+    </div>
+
+    
+{% endblock %}

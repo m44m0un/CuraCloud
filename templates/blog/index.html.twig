@@ -1,0 +1,72 @@
+{#{% extends 'base.html.twig' %}#}
+{% extends 'listBlogs.html.twig' %}
+
+{% block body %}
+    <h1>Latest Blog Posts</h1>
+
+    <div class="container">
+    <div class="row multi-columns-row post-columns">
+
+        {% for blog in blogs %}
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post">
+                  <div class="post-thumbnail"><a href="#"><img src="{{ blog.image }}" alt="Blog Image"></a></div>
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="post-link">{{ blog.title }}</a></h2>
+                    {# <div class="post-meta">By&nbsp;<a href="#">Andy River</a>&nbsp;| 11 November | 4 Comments #}
+                    <div class="post-meta"><a href="#">{{ blog.subject }}</a>
+                    </div>
+                  </div>
+                  <div class="post-entry">
+                    <p>{{ blog.content|slice(0, 200) }}{% if blog.content|length > 200 %}...{% endif %}</p>
+                  </div>
+                  <div class="post-more"><a class="more-link"href="{{ path('app_blog_show', {'id': blog.id}) }}">Read more</a></div>
+                </div>
+              </div>
+        {% else %}
+            <p>No blog posts found</p>
+        {% endfor %}
+
+    </div>
+    </div>
+
+    <a href="{{ path('app_blog_new') }}">Create new</a>
+{% endblock %}
+
+{# {% block body %}
+    <h1>Blog index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>Subject</th>
+                <th>Image</th>
+                <th>SubmissionDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td>{{ blog.content }}</td>
+                <td>{{ blog.subject }}</td>
+                <td>{{ blog.image }}</td>
+                <td>{{ blog.submissionDate ? blog.submissionDate|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
+                    <a href="{{ path('app_blog_edit', {'id': blog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_blog_new') }}">Create new</a>
+{% endblock %} #}
