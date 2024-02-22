@@ -38,8 +38,8 @@
                 <td>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <div class="d-inline-block text-nowrap">
-                        <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_edit', {'id': user.id}) }}"><i class="bx bx-edit"></i></a></button>
-                        <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_show', {'id': user.id}) }}"><i class="bx bx-dots-vertical-rounded me-2"></i></a></button>    
+                        <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_show', {'id': user.id}) }}"><i class="bx bx-show-alt"></i></a></button>
+                        {# <button class="btn btn-sm btn-icon"><a href="{{ path('app_user_edit', {'id': user.id}) }}"><i class="bx bx-dots-vertical-rounded me-2"></i></a></button>     #}
                     </div>
                 </td>
             </tr>

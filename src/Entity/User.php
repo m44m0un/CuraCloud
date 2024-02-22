@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -17,6 +18,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Email]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -29,21 +32,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 255)]
     #[ORM\Column(nullable: true)]
     private ?string $firstName = null;
     
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(nullable: true)]
     private ?string $lastName = null;
     
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: "/^\d{8}$/",
+        message: "Phone number should be 8 digits."
+    )]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $phoneNumber = null;
     
+    #[Assert\Date]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $birthDate = null;
+
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $gender = null;
     
+    #[Assert\Length(min: 3)]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $address = null;
 

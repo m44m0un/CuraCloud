@@ -39,10 +39,6 @@
               <span class="badge bg-label-success">{{ user.email }}</span>
             </li>
             <li class="mb-3">
-              <span class="fw-medium me-2">Password:</span>
-              <span>{{ user.password }}</span>
-            </li>
-            <li class="mb-3">
               <span class="fw-medium me-2">Contact:</span>
               <span>{{ user.phoneNumber }}</span>
             </li>
@@ -96,10 +92,6 @@
             <li class="mb-3">
               <span class="fw-medium me-2">Email:</span>
               <span class="badge bg-label-success">{{ user.email }}</span>
-            </li>
-            <li class="mb-3">
-              <span class="fw-medium me-2">Password:</span>
-              <span>{{ user.password }}</span>
             </li>
             <li class="mb-3">
               <span class="fw-medium me-2">Contact:</span>
@@ -169,10 +161,6 @@
               <span class="badge bg-label-success">{{ user.email }}</span>
             </li>
             <li class="mb-3">
-              <span class="fw-medium me-2">Password:</span>
-              <span>{{ user.password }}</span>
-            </li>
-            <li class="mb-3">
               <span class="fw-medium me-2">Contact:</span>
               <span>{{ user.phoneNumber }}</span>
             </li>
@@ -230,10 +218,6 @@
             <li class="mb-3">
               <span class="fw-medium me-2">Email:</span>
               <span class="badge bg-label-success">{{ user.email }}</span>
-            </li>
-            <li class="mb-3">
-              <span class="fw-medium me-2">Password:</span>
-              <span>{{ user.password }}</span>
             </li>
             <li class="mb-3">
               <span class="fw-medium me-2">Contact:</span>
@@ -295,10 +279,6 @@
               <span class="badge bg-label-success">{{ user.email }}</span>
             </li>
             <li class="mb-3">
-              <span class="fw-medium me-2">Password:</span>
-              <span>{{ user.password }}</span>
-            </li>
-            <li class="mb-3">
               <span class="fw-medium me-2">Contact:</span>
               <span>{{ user.phoneNumber }}</span>
             </li>
@@ -338,5 +318,11 @@
 
     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a> #}
     
+
+{% endblock %}
+
+{% block edit %}
+
+{{ include('user/edit.html.twig') }}
 
 {% endblock %}

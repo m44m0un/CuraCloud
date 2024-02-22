@@ -139,7 +139,6 @@
           <!-- /Logo -->
           <h4 class="mb-2">Adventure starts here 🚀</h4>
           <p class="mb-4">Make your app management easy and fun!</p>
-          {{ form_errors(registrationForm) }} 
           <div id="formAuthentication" class="mb-3">
             <div class="nav-align-top mb-3">
               <ul class="nav nav-tabs" role="tablist">
@@ -161,7 +160,7 @@
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade active show" id="form-tabs-patient" role="tabpanel">
-                  {{ form_start(registrationForm) }}
+                  {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-first-name">First Name</label>
@@ -169,6 +168,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                             {{ form_widget(registrationForm.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'John'} }) }}                         
                           </div>
+                          {{ form_errors(registrationForm.firstName) }} 
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-last-name">Last Name</label>
@@ -176,6 +176,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-id-card'></i></span>
                             {{ form_widget(registrationForm.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Doe'} }) }}
                           </div>
+                          {{ form_errors(registrationForm.lastName) }} 
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-email">Email</label>
@@ -185,7 +186,7 @@
                             {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control', 'placeholder': 'john.doe'} }) }}                            
                             <span class="input-group-text" id="formtabs-email2">@example.com</span>
                           </div>
-                          
+                          {{ form_errors(registrationForm.email) }} 
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -197,6 +198,7 @@
                             {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'placeholder': '············'} }) }}
                             <span class="input-group-text cursor-pointer" id="formtabs-password2"><i class="bx bx-hide"></i></span>
                           </div>
+                          {{ form_errors(registrationForm.plainPassword) }}                          
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -206,6 +208,7 @@
                           {# <input type="text" id="formtabs-birthdate" class="form-control dob-picker flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly"> #}
                           {{ form_widget(registrationForm.birthdate, { 'attr': {'class': 'form-control dob-picker flatpickr-input birthdate-input', 'placeholder': 'YYYY-MM-DD', 'readonly': 'readonly'} }) }}
                         </div>
+                        {{ form_errors(registrationForm.birthdate) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-phone">Phone No</label>
@@ -214,6 +217,7 @@
                             {# <input type="text" id="formtabs-phone" class="form-control phone-mask" placeholder="(+216) 98 765 243" aria-label="98 765 243"> #}
                              {{ form_widget(registrationForm.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}
                           </div>
+                          {{ form_errors(registrationForm.phoneNumber) }}
                       </div>
                             <label class="form-check-label">Gender</label>
                             <div class="col mt-2">
@@ -235,7 +239,7 @@
                   {{ form_end(registrationForm) }}
                 </div>
                 <div class="tab-pane fade" id="form-tabs-doctor" role="tabpanel">
-                  {{ form_start(registrationForm2) }}
+                  {{ form_start(registrationForm2,{'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-first-name">First Name</label>
@@ -243,6 +247,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                             {{ form_widget(registrationForm2.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'John'} }) }}                         
                           </div>
+                          {{ form_errors(registrationForm2.firstName) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-last-name">Last Name</label>
@@ -250,6 +255,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-id-card'></i></span>
                             {{ form_widget(registrationForm2.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Doe'} }) }}
                           </div>
+                          {{ form_errors(registrationForm2.lastName) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-email">Email</label>
@@ -259,7 +265,7 @@
                             {{ form_widget(registrationForm2.email, { 'attr': {'class': 'form-control', 'placeholder': 'john.doe'} }) }}                            
                             <span class="input-group-text" id="formtabs-email2">@example.com</span>
                           </div>
-                          
+                          {{ form_errors(registrationForm2.email) }}
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -272,6 +278,7 @@
                             <span class="input-group-text cursor-pointer" id="formtabs-password2"><i class="bx bx-hide"></i></span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm2.plainPassword) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-birthdate">Birth Date</label>
@@ -280,6 +287,7 @@
                           {# <input type="text" id="formtabs-birthdate" class="form-control dob-picker flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly"> #}
                           {{ form_widget(registrationForm2.birthdate, { 'attr': {'class': 'form-control dob-picker flatpickr-input birthdate-input', 'placeholder': 'YYYY-MM-DD', 'readonly': 'readonly'} }) }}
                         </div>
+                        {{ form_errors(registrationForm2.birthdate) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-phone">Phone No</label>
@@ -288,6 +296,7 @@
                             {# <input type="text" id="formtabs-phone" class="form-control phone-mask" placeholder="(+216) 98 765 243" aria-label="98 765 243"> #}
                             {{ form_widget(registrationForm2.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}
                           </div>
+                          {{ form_errors(registrationForm2.phoneNumber) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Address</label>
@@ -296,6 +305,7 @@
                             {# <input type="text" class="form-control" placeholder="Ariana,Tunis">#}
                             {{ form_widget(registrationForm2.address, { 'attr': {'class': 'form-control', 'placeholder': 'Ariana,Tunis'} }) }}
                           </div>
+                          {{ form_errors(registrationForm2.address) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="collapsible-state">Speciality</label>
@@ -303,6 +313,7 @@
                             <span class="input-group-text"><i class='bx bx-briefcase'></i></span>
                             {{ form_widget(registrationForm2.speciality, { 'attr': {'class': 'select2 form-select', 'placeholder': 'select one job'} }) }}
                           </div>
+                          {{ form_errors(registrationForm2.speciality) }}
                       </div>
                       <div class="col-md-6">
                         <label for="formFile" class="form-label">Certification</label>
@@ -330,7 +341,7 @@
                   {{ form_end(registrationForm2) }}
                 </div>
                 <div class="tab-pane fade" id="form-tabs-pharmacy" role="tabpanel">
-                  {{ form_start(registrationForm3) }}
+                  {{ form_start(registrationForm3,{'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-email">Email</label>
@@ -341,7 +352,7 @@
                             {{ form_widget(registrationForm3.email, { 'attr': {'class': 'form-control', 'placeholder': 'john.doe'} }) }}
                             <span class="input-group-text" id="formtabs-email2">@example.com</span>
                           </div>
-                          
+                          {{ form_errors(registrationForm3.email) }}
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -354,6 +365,7 @@
                             <span class="input-group-text cursor-pointer" id="formtabs-password2"><i class="bx bx-hide"></i></span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm3.plainPassword) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Pharmacy name</label>
@@ -362,6 +374,7 @@
                            {{ form_widget(registrationForm3.firstName, { 'attr': {'class': 'form-control dob-picker flatpickr-input', 'placeholder': 'joe pharmacy'} }) }}
                           {# <input type="text" id="formtabs-first-name" class="form-control dob-picker flatpickr-input" placeholder="joe pharmacy"> #}
                         </div>
+                        {{ form_errors(registrationForm3.firstName) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-phone">Phone No</label>
@@ -370,6 +383,7 @@
                             {{ form_widget(registrationForm3.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}
                             {# <input type="text" id="formtabs-phone" class="form-control phone-mask" placeholder="(+216) 98 765 243" aria-label="98 765 243"> #}
                           </div>
+                          {{ form_errors(registrationForm3.phoneNumber) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Address</label>
@@ -378,6 +392,7 @@
                             {# <input type="text" class="form-control" placeholder="Ariana,Tunis">  #}
                             {{ form_widget(registrationForm3.address, { 'attr': {'class': 'form-control', 'placeholder': 'Ariana,Tunis'} }) }}                         
                           </div>
+                          {{ form_errors(registrationForm3.address) }}
                       </div>
                       
                       <div class="col-md-6">
@@ -404,7 +419,7 @@
                   {{ form_end(registrationForm3) }}
                 </div>
                 <div class="tab-pane fade" id="form-tabs-radiology" role="tabpanel">
-                  {{ form_start(registrationForm4) }}
+                  {{ form_start(registrationForm4,{'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-email">Email</label>
@@ -416,6 +431,7 @@
                             <span class="input-group-text" id="formtabs-email2">@example.com</span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm4.email) }}
                       </div>
                       <div class="col-md-6">
                         <div class="form-password-toggle">
@@ -427,6 +443,7 @@
                             <span class="input-group-text cursor-pointer" id="formtabs-password2"><i class="bx bx-hide"></i></span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm4.plainPassword) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Radiology center name</label>
@@ -435,6 +452,7 @@
                           {# <input type="text" id="formtabs-first-name" class="form-control dob-picker flatpickr-input" placeholder="joe radiology center"> #}
                            {{ form_widget(registrationForm4.firstName, { 'attr': {'class': 'form-control dob-picker flatpickr-input', 'placeholder': 'joe radiology center'} }) }}
                         </div>
+                        {{ form_errors(registrationForm4.firstName) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-phone">Phone No</label>
@@ -443,6 +461,7 @@
                             {# <input type="text" id="formtabs-phone" class="form-control phone-mask" placeholder="(+216) 98 765 243" aria-label="98 765 243"> #}
                             {{ form_widget(registrationForm4.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}
                           </div>
+                          {{ form_errors(registrationForm4.phoneNumber) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Address</label>
@@ -451,13 +470,14 @@
                             {# <input type="text" class="form-control" placeholder="Ariana,Tunis">  #}
                             {{ form_widget(registrationForm4.address, { 'attr': {'class': 'form-control', 'placeholder': 'Ariana,Tunis'} }) }}                         
                           </div>
+                          {{ form_errors(registrationForm4.address) }}
                       </div>
                       
                       <div class="col-md-6">
                         <label for="formFile" class="form-label">Certification</label>
                         {# <input class="form-control" type="file" id="formFile"> #}
                         {{ form_widget(registrationForm4.certification, { 'attr': {'class': 'form-control'} }) }}
-                    </div>
+                      </div>
                       <div class="col-md-6">
                         <label class="form-check-label">center type</label>
                         <div class="col mt-2">
@@ -479,7 +499,7 @@
                   {{ form_end(registrationForm4) }}
                 </div>
                 <div class="tab-pane fade" id="form-tabs-labcenter" role="tabpanel">
-                  {{ form_start(registrationForm5) }}
+                  {{ form_start(registrationForm5,{'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-email">Email</label>
@@ -491,6 +511,7 @@
                             <span class="input-group-text" id="formtabs-email2">@example.com</span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm5.email) }}
                       </div>
                       <div class="col-md-6">
                         <div class="form-password-toggle">
@@ -502,6 +523,7 @@
                             <span class="input-group-text cursor-pointer" id="formtabs-password2"><i class="bx bx-hide"></i></span>
                           </div>
                         </div>
+                        {{ form_errors(registrationForm5.plainPassword) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Lab name</label>
@@ -510,6 +532,7 @@
                            {{ form_widget(registrationForm5.firstName, { 'attr': {'class': 'form-control dob-picker flatpickr-input', 'placeholder': 'joe laboratory'} }) }}
                           {# <input type="text" id="formtabs-first-name" class="form-control dob-picker flatpickr-input" placeholder="joe laboratory"> #}
                         </div>
+                        {{ form_errors(registrationForm5.firstName) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="formtabs-phone">Phone No</label>
@@ -518,6 +541,7 @@
                             {# <input type="text" id="formtabs-phone" class="form-control phone-mask" placeholder="(+216) 98 765 243" aria-label="98 765 243"> #}
                             {{ form_widget(registrationForm5.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '(+216) 98 765 243', 'aria-label': '98 765 243'} }) }}                          
                           </div>
+                          {{ form_errors(registrationForm5.phoneNumber) }}
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Address</label>
@@ -526,6 +550,7 @@
                             {{ form_widget(registrationForm5.address, { 'attr': {'class': 'form-control', 'placeholder': 'Ariana,Tunis'} }) }}                         
                             {# <input type="text" class="form-control" placeholder="Ariana,Tunis">  #}
                           </div>
+                          {{ form_errors(registrationForm5.address) }}
                       </div>
                       
                       <div class="col-md-6">

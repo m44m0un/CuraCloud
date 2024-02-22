@@ -300,6 +300,7 @@
                   <li><a href="shop_checkout.html">Checkout</a></li>
                 </ul>
               </li-->
+              {% block nav %}
               <li><a href="{{ path('app_register') }}">Register</a>
                 <!--ul class="dropdown-menu">
                   <li><a href="documentation.html#contact">Contact Form</a></li>
@@ -320,6 +321,7 @@
                   <li><a href="documentation.html#changelog">Changelog</a></li>
                 </ul-->
               </li>
+              {% endblock %}
             </ul>
           </div>
         </div>

@@ -58,7 +58,7 @@
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="{{asset('back/assets/vendor/libs/perfect-scrollbar/perfect-scrollbare482.css?id=73d641bb8db2475ecafc6c68461ed01b')}}" />
 <link rel="stylesheet" href="{{asset('back/assets/vendor/libs/typeahead-js/typeahead05d2.css?id=de339ead5e9c9e36f12e46cbef7aaffd')}}" />
-
+<link rel="stylesheet" href="{{asset('back/assets/vendor/libs/flatpickr/flatpickr.css')}}">
 <!-- Vendor Styles -->
 <link rel="stylesheet" href="{{asset('back/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
 <link rel="stylesheet" href="{{asset('back/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
@@ -3104,6 +3104,7 @@
 
 <!-- Modal -->
 <!-- Edit User Modal -->
+
 <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-simple modal-edit-user">
     <div class="modal-content p-3 p-md-5">
@@ -3113,6 +3114,7 @@
           <h3>Edit User Information</h3>
           <p>Updating user details will receive a privacy audit.</p>
         </div>
+        {% block edit %}
         <form id="editUserForm" class="row g-3" onsubmit="return false">
           <div class="col-12 col-md-6">
             <label class="form-label" for="modalEditUserFirstName">First Name</label>
@@ -3209,10 +3211,12 @@
             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
           </div>
         </form>
+        {% endblock %}
       </div>
     </div>
   </div>
 </div>
+
 <!--/ Edit User Modal -->
 <!-- Add New Credit Card Modal -->
 <div class="modal fade" id="upgradePlanModal" tabindex="-1" aria-hidden="true">
@@ -3313,6 +3317,8 @@
 <script src="{{asset('back/assets/vendor/libs/%40form-validation/umd/bundle/popular.min.js')}}"></script>
 <script src="{{asset('back/assets/vendor/libs/%40form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
 <script src="{{asset('back/assets/vendor/libs/%40form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
+<script src="{{asset('back/assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('back/js/myjs.js')}}"></script>
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{asset('back/assets/js/maind63d.js?id=6bea3f2e092d5fe7327c226f3242f31b')}}"></script>
