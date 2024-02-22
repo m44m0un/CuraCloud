@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('admin_medical_record_delete', {'id': medical_record.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ medical_record.id) }}">
+    <button type="submit" class="btn btn-danger" title="Delete">
+        <i class="fas fa-trash-alt"></i> Delete
+    </button>
+</form>

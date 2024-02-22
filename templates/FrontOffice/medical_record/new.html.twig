@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Medical Record{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Create New Medical Record</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            {{ include('medical_record/_form.html.twig') }}
+        </div>
+    </div>
+
+    <a href="{{ path('app_medical_record_index') }}" class="btn btn-secondary mt-3">Back to List</a>
+</div>
+{% endblock %}

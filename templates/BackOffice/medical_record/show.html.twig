@@ -1,0 +1,71 @@
+{% extends 'Backoffice/base.html.twig' %}
+
+{% block title %}Medical Record{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">Medical Record Details</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+    
+                            <tr>
+                                <th>Medical History</th>
+                                <td>{{ medical_record.medicalHistory }}</td>
+                            </tr>
+                            <tr>
+                                <th>Surgical History</th>
+                                <td>{{ medical_record.surgicalHistory }}</td>
+                            </tr>
+                            <tr>
+                                <th>Family History</th>
+                                <td>{{ medical_record.familyHistory }}</td>
+                            </tr>
+                            <tr>
+                                <th>Allergies</th>
+                                <td>{{ medical_record.allergies }}</td>
+                            </tr>
+                            <tr>
+                                <th>Height</th>
+                                <td>{{ medical_record.height }}</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>{{ medical_record.weight }}</td>
+                            </tr>
+                            <tr>
+                                <th>Blood Type</th>
+                                <td>{{ medical_record.bloodType }}</td>
+                            </tr>
+                            <tr>
+                                <th>Diseases</th>
+                                <td>{{ medical_record.diseases }}</td>
+                            </tr>
+                            <tr>
+                                <th>Medications</th>
+                                <td>{{ medical_record.medications }}</td>
+                            </tr>
+                            <tr>
+                                <th>Vaccines</th>
+                                <td>{{ medical_record.vaccines }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('admin_medical_record_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                        <div>
+                            <a href="{{ path('admin_medical_record_edit', {'id': medical_record.id}) }}" class="btn btn-primary">Edit</a>
+                            {{ include('BackOffice/medical_record/_delete_form.html.twig', {'button_css': 'btn btn-danger ms-2'}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

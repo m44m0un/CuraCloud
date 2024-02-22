@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MedicalRecord{% endblock %}
+
+{% block body %}
+    <h1>MedicalRecord</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medical_record.id }}</td>
+            </tr>
+            <tr>
+                <th>MedicalHistory</th>
+                <td>{{ medical_record.medicalHistory }}</td>
+            </tr>
+            <tr>
+                <th>SurgicalHistory</th>
+                <td>{{ medical_record.surgicalHistory }}</td>
+            </tr>
+            <tr>
+                <th>FamilyHistory</th>
+                <td>{{ medical_record.familyHistory }}</td>
+            </tr>
+            <tr>
+                <th>Allergies</th>
+                <td>{{ medical_record.allergies }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ medical_record.height }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ medical_record.weight }}</td>
+            </tr>
+            <tr>
+                <th>BloodType</th>
+                <td>{{ medical_record.bloodType }}</td>
+            </tr>
+            <tr>
+                <th>Diseases</th>
+                <td>{{ medical_record.diseases }}</td>
+            </tr>
+            <tr>
+                <th>Medications</th>
+                <td>{{ medical_record.medications }}</td>
+            </tr>
+            <tr>
+                <th>Vaccines</th>
+                <td>{{ medical_record.vaccines }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medical_record_index') }}">back to list</a>
+
+    <a href="{{ path('app_medical_record_edit', {'id': medical_record.id}) }}">edit</a>
+
+    {{ include('medical_record/_delete_form.html.twig') }}
+{% endblock %}

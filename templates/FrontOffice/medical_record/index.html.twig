@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MedicalRecord index{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .table tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr:nth-of-type(even) {
+            background-color: #ffffff;
+        }
+
+        .table td.actions a {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .btn-create-new {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>MedicalRecord index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Medical History</th>
+                <th>Surgical History</th>
+                <th>Family History</th>
+                <th>Allergies</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Blood Type</th>
+                <th>Diseases</th>
+                <th>Medications</th>
+                <th>Vaccines</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medical_record in medical_records %}
+                <tr>
+                    <td>{{ medical_record.id }}</td>
+                    <td>{{ medical_record.medicalHistory }}</td>
+                    <td>{{ medical_record.surgicalHistory }}</td>
+                    <td>{{ medical_record.familyHistory }}</td>
+                    <td>{{ medical_record.allergies }}</td>
+                    <td>{{ medical_record.height }}</td>
+                    <td>{{ medical_record.weight }}</td>
+                    <td>{{ medical_record.bloodType }}</td>
+                    <td>{{ medical_record.diseases }}</td>
+                    <td>{{ medical_record.medications }}</td>
+                    <td>{{ medical_record.vaccines }}</td>
+                    <td class="actions">
+                        <a href="{{ path('app_medical_record_show', {'id': medical_record.id}) }}" class="btn btn-sm btn-primary">Show</a>
+                        <a href="{{ path('app_medical_record_edit', {'id': medical_record.id}) }}" class="btn btn-sm btn-warning">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="12">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medical_record_new') }}" class="btn btn-success btn-create-new">Create New</a>
+{% endblock %}

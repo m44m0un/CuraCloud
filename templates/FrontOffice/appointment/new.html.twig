@@ -1,0 +1,65 @@
+{% extends 'FrontOffice/baseAhmed/base.html.twig' %}
+{% block title %} <title>
+New Appointment</title>
+{% endblock %}
+
+{% block body %}
+  <div class="main">
+    <section class="module bg-dark-30 about-page-header" data-background="{{asset('front/images/testimonial_bg.jpg') }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="module-title font-alt mb-0">CuraCloud</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="module">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h1 style="color: #011663; text-align: center; font-style: italic;">Create New Appointment</h1>
+        <br><br>
+
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="form-group">
+          {{ form_label(form.description) }}
+          {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Brief description of the appointment'}}) }}
+          {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group">
+          {{ form_label(form.status) }}
+          {{ form_widget(form.status, {'attr': {'class': 'form-control', 'placeholder': 'Current status of the appointment'}}) }}
+          {{ form_errors(form.status) }}
+        </div>
+
+        <div class="form-group">
+          {{ form_label(form.startDate) }}
+          {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+          {{ form_errors(form.startDate) }}
+        </div>
+
+        <div class="form-group">
+          {{ form_label(form.endDate) }}
+          {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}}) }}
+          {{ form_errors(form.endDate) }}
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+
+        {{ form_end(form) }}
+<button onclick="location.href='{{ path('user_app_appointment_show') }}'" class="back-to-list-link" style="display: block; margin-top: 20px;">
+  <span style="font-size: 1.5em; color: #3498db;">&#9665;</span> Show appointment
+</button>
+
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+

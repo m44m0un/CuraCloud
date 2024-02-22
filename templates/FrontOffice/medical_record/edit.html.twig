@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Medical Record{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h5 class="card-header">Edit Medical Record</h5>
+    <div class="card-body">
+        {{ include('medical_record/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <div class="mt-3">
+            <a href="{{ path('app_medical_record_index') }}" class="btn btn-outline-secondary">Back to list</a>
+        </div>
+
+        <div class="mt-2">
+            {{ include('medical_record/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

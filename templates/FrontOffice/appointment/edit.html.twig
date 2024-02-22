@@ -1,0 +1,13 @@
+{% extends 'FrontOffice/baseAhmed/base.html.twig' %}
+
+{% block title %}Edit Appointment{% endblock %}
+
+{% block body %}
+    <h1>Edit Appointment</h1>
+
+    {{ include('FrontOffice/appointment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_app_appointment_index') }}">back to list</a>
+
+    {{ include('FrontOffice/appointment/_delete_form.html.twig') }}
+{% endblock %}
