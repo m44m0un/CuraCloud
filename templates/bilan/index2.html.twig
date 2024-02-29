@@ -1,0 +1,45 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}<title>Bilan index</title>{% endblock %}
+
+{% block body %}
+
+<br><br><br><br><br><br><br><br><br>
+    <h1>Bilan index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Realisation Date</th>
+                <th>Result</th>
+                <th>LabComment</th>
+                <th>Submission Date</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bilan in bilans %}
+            <tr>
+                <td>{{ bilan.id }}</td>
+                <td>{{ bilan.realisationDate ? bilan.realisationDate|date('Y-m-d') : '' }}</td>
+                <td>{{ bilan.result }}</td>
+                <td>{{ bilan.labComment }}</td>
+                <td>{{ bilan.submissionDate ? bilan.submissionDate|date('Y-m-d') : '' }}</td>
+                <td>{{ bilan.price }}</td>
+                <td>
+                    <a href="{{ path('app_bilan_show', {'id': bilan.id}) }}">show</a>
+                    <a href="{{ path('app_bilan_edit', {'id': bilan.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bilan_new') }}">Create new</a>
+{% endblock %}

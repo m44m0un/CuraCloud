@@ -1,0 +1,54 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}<title>
+DiagnosticRequestDetails
+</title>{% endblock %}
+
+{% block body %}
+ <br><br>
+
+ <div class="main">
+ 
+    <br>
+   <h1 style="color: #011663; text-align: center; font-style: italic;">Details Diagnostic</h1>
+<br><br> <br>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ diagnostic_request.id }}</td>
+            </tr>
+            <tr>
+                <th>AnalyseType</th>
+                <td>{{ diagnostic_request.analyseType }}</td>
+            </tr>
+            <tr>
+                <th>CreationDate</th>
+                <td>{{ diagnostic_request.creationDate ? diagnostic_request.creationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ diagnostic_request.status }}</td>
+            </tr>
+            <tr>
+                <th>DoctorNotes</th>
+                <td>{{ diagnostic_request.doctorNotes }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ diagnostic_request.type }}</td>
+            </tr>
+            <tr>
+                <th>RadioType</th>
+                <td>{{ diagnostic_request.radioType }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_diagnostic_request_index2') }}">back to list</a>
+
+    <a href="{{ path('app_diagnostic_request_edit', {'id': diagnostic_request.id}) }}">edit</a>
+
+    {{ include('diagnostic_request/_delete_form.html.twig') }}
+{% endblock %}
