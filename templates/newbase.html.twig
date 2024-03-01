@@ -184,7 +184,7 @@
                 <div class="col-12 col-lg">
                   <!-- add page slug in $activeRoutes array, defined Beginning of the page to add active class to the nav item -->
                   <ul class="nav flex-column">
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                       <a class="nav-link mega-dropdown-link" href="pricing.html">
                         <i class='bx bx-radio-circle me-2'></i>
                         <span>Analyse</span>
@@ -200,6 +200,9 @@
                 </div>
               </div>
             </div>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link fw-medium" aria-current="page" href="{{ path('app_blog_index') }}">Blogs</a>
           </li>
         </ul>
       </div>
@@ -243,10 +246,11 @@
   </div>
 </nav>
 <!-- Navbar: End -->
-{% block body %}
 <!-- Sections:Start -->
 <!-- Pricing Plans -->
 <section class="section-py first-section-pt">
+{% block body %}
+
   <div class="container">
     <h2 class="text-center mb-2">Pricing Plans</h2>
     <p class="text-center mb-4 pb-2"> All plans include 40+ advanced tools and features to boost your product.<br>

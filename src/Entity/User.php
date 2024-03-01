@@ -301,4 +301,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+    public function __toString()
+    {
+        // If you want to return the user's id as a string representation
+        return strval($this->getId());
+    }
 }
