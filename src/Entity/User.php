@@ -30,6 +30,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/",
+        message: "Password must have at least 1 (uppercase,lowercase,number,symbol)."
+    )]
     private ?string $password = null;
 
     #[Assert\NotBlank]
@@ -171,12 +175,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     
     
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
     
-    public function setPhoneNumber(?int $phoneNumber): static
+    public function setPhoneNumber(?string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
     
@@ -296,5 +300,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+    public function __toString()
+    {
+        // If you want to return the user's id as a string representation
+        return strval($this->getId());
     }
 }

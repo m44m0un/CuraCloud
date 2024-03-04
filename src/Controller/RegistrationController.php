@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
             $user1->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user1,
-                    $form1->get('plainPassword')->getData()
+                    $form1->get('password')->getData()
                 )
             );
             $user1->setRoles(['ROLE_PATIENT']);
@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         else if ($form2->isSubmitted() && $form2->isValid()) {
@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             $user2->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user2,
-                    $form2->get('plainPassword')->getData()
+                    $form2->get('password')->getData()
                 )
             );
             $user2->setRoles(['ROLE_DOCTOR']);
@@ -66,7 +66,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
         else if ($form3->isSubmitted() && $form3->isValid()) {
             $user3->setInscriptionDate(new \DateTime());
@@ -74,7 +74,7 @@ class RegistrationController extends AbstractController
             $user3->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user3,
-                    $form3->get('plainPassword')->getData()
+                    $form3->get('password')->getData()
                 )
             );
             $user3->setRoles(['ROLE_PHARMACY']);
@@ -82,7 +82,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
         else if ($form4->isSubmitted() && $form4->isValid()) {
             $user4->setInscriptionDate(new \DateTime());
@@ -90,7 +90,7 @@ class RegistrationController extends AbstractController
             $user4->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user4,
-                    $form4->get('plainPassword')->getData()
+                    $form4->get('password')->getData()
                 )
             );
             $user4->setRoles(['ROLE_RADIOLOGY']);
@@ -98,7 +98,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
         else if ($form5->isSubmitted() && $form5->isValid()) {
             $user5->setInscriptionDate(new \DateTime());
@@ -106,7 +106,7 @@ class RegistrationController extends AbstractController
             $user5->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user5,
-                    $form5->get('plainPassword')->getData()
+                    $form5->get('password')->getData()
                 )
             );
             $user5->setRoles(['ROLE_LAB']);
@@ -114,7 +114,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_logout');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [

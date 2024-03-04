@@ -29,6 +29,10 @@ class Bilan
     #[ORM\Column]
     private ?float $price = null;
 
+    #[ORM\ManyToOne(inversedBy: 'id_bilan')]
+    private ?DiagnosticRequest $diagnosticRequest = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,4 +97,18 @@ class Bilan
 
         return $this;
     }
+
+    public function getDiagnosticRequest(): ?DiagnosticRequest
+    {
+        return $this->diagnosticRequest;
+    }
+
+    public function setDiagnosticRequest(?DiagnosticRequest $diagnosticRequest): static
+    {
+        $this->diagnosticRequest = $diagnosticRequest;
+
+        return $this;
+    }
+
+
 }

@@ -1,0 +1,44 @@
+{% extends 'newbase.html.twig' %}
+
+{% block title %}<title>Prescription Details</title>{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">Prescription Details</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Duration</th>
+                                <td>{{ prescription.duration }}</td>
+                            </tr>
+                            <tr>
+                                <th>Creation Date</th>
+                                <td>{{ prescription.creationDate|date('Y-m-d') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Medications</th>
+                                <td>
+                                    <ul>
+                                        {% for medication in prescription.medications %}
+                                            <li>{{ medication.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('user_prescription_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

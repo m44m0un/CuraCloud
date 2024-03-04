@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\DiagnosticRequestRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DiagnosticRequestRepository::class)]
 class DiagnosticRequest
@@ -15,13 +18,16 @@ class DiagnosticRequest
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message:"Please choose a type of analysis.")]
     private ?string $analyseType = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $creationDate = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Please choose a status.")]
     private ?string $status = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $doctorNotes = null;
@@ -30,7 +36,20 @@ class DiagnosticRequest
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message:"Please choose a type of radiologie.")]
     private ?string $radioType = null;
+
+    #[ORM\OneToMany(mappedBy: 'idDiagnosticRequest', targetEntity: Bilan::class)]
+    private Collection $idBilan;
+
+    #[ORM\OneToMany(mappedBy: 'diagnosticRequest', targetEntity: Bilan::class)]
+    private Collection $id_bilan;
+
+    public function __construct()
+    {
+        $this->idBilan = new ArrayCollection();
+        $this->id_bilan = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +124,36 @@ class DiagnosticRequest
     public function setRadioType(?string $radioType): static
     {
         $this->radioType = $radioType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bilan>
+     */
+    public function getIdBilan(): Collection
+    {
+        return $this->idBilan;
+    }
+
+    public function addIdBilan(Bilan $idBilan): static
+    {
+        if (!$this->idBilan->contains($idBilan)) {
+            $this->idBilan->add($idBilan);
+            $idBilan->setIdDiagnosticRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdBilan(Bilan $idBilan): static
+    {
+        if ($this->idBilan->removeElement($idBilan)) {
+            // set the owning side to null (unless already changed)
+            if ($idBilan->getIdDiagnosticRequest() === $this) {
+                $idBilan->setIdDiagnosticRequest(null);
+            }
+        }
 
         return $this;
     }

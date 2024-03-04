@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\UserType3;
+use App\Form\UserType2;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,7 +71,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET', 'POST'])]
     public function show(User $user,Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType3::class, $user);
+        $form = $this->createForm(UserType2::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

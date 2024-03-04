@@ -1,0 +1,82 @@
+{#{% extends 'BaseBack.html.twig' %}
+
+{% block title %}New Bilan{% endblock %}
+
+{% block body %}
+    <h1>Create new Bilan</h1>
+
+    {{ include('bilan/_form.html.twig') }}
+
+    <a href="{{ path('app_bilan_index') }}">back to list</a>
+{% endblock %}#}
+
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}<title>New Bilan</title>{% endblock %}
+
+{% block body %}
+
+<div class="row my-4">
+  <div class="col">
+    <h6>  Add Diagnostic Result </h6>
+    <div class="accordion" id="collapsibleSection">
+      <div class="card accordion-item">
+        <h2 class="accordion-header" id="headingDeliveryAddress">
+          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseDeliveryAddress" aria-expanded="true" aria-controls="collapseDeliveryAddress"> Diagnostic Result  </button>
+        </h2>
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div id="collapseDeliveryAddress" class="accordion-collapse collapse show" data-bs-parent="#collapsibleSection">
+          <div class="accordion-body">
+            <div class="col mt-2">
+                <label class="form-label" for="collapsible-fullname">Full Name</label>
+                <input type="text" id="collapsible-fullname" class="form-control" placeholder="John Doe" />
+              </div>
+              <div class="col mt-2">
+                <label class="form-label" for="collapsible-phone">Phone No</label>
+                <input type="text" id="collapsible-phone" class="form-control phone-mask" placeholder="658 799 8941" aria-label="658 799 8941" />
+              </div>
+           <label class="form-check-label">Realisation Date</label>
+              <div class="col mt-2">
+                  {#<input name="collapsible-address-type" class="form-check-input" type="radio" value="" id="collapsible-address-type-home" checked="" />#}
+                  {{ form_widget(form.realisationDate  ,{'attr':{'class':' form-control dob-picker flatpickr-input active'}}) }}
+                       {{ form_errors(form.realisationDate) }}
+                  {#<label class="form-check-label" for="collapsible-address-type-home">Analyse (All day delivery)</label>#}
+              </div>
+               <div class="col mt-2">
+                <label class="form-label" for="collapsible-state">Submission Date</label>
+               {{form_widget(form.submissionDate,{'attr':{'class':'form-control dob-picker flatpickr-input active'}})}}
+                     {{ form_errors(form.submissionDate) }}
+              </div>
+                 <div class="col mt-2">
+                <label class="form-label" for="collapsible-state">Result </label>
+                {{form_widget(form.result,{'attr':{'class':'form-control'}})}}
+                     {{ form_errors(form.result) }}
+              </div>
+
+              <div class="row g-3">
+               <div class="col-12">
+                <label class="form-label" for="collapsible-address">Lab Comments </label>
+               {# <textarea name="collapsible-address" class="form-control" id="collapsible-address" rows="2" placeholder="Anything to add"></textarea>#}
+                 {{form_widget(form.labComment,{'attr':{'class':'form-control'}})}}
+                      {{ form_errors(form.labComment) }}
+              </div>
+               <div class="col-md-6">
+                <label class="form-label" for="collapsible-state">Price</label>
+                    {{form_widget(form.price,{'attr':{'class':'form-control'}})}}
+                      {{ form_errors(form.price) }}
+                 </div>
+                 <br>
+                <div class="mt-1">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                <button type="reset" class="btn btn-label-secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+              {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

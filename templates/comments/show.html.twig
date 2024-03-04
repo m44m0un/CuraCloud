@@ -1,0 +1,70 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Comments{% endblock %}
+
+{% block body %}
+    <h1>Comments</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comment.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <th>SubmissionDate</th>
+                <td>{{ comment.submissionDate ? comment.submissionDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_comments_index') }}">back to list</a>
+
+    <a href="{{ path('app_comments_edit', {'id': comment.id}) }}">edit</a>
+
+    {{ include('comments/_delete_form.html.twig') }}
+{% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Comments{% endblock %}
+
+{% block body %}
+    <h1>Comments</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comment.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <th>SubmissionDate</th>
+                <td>{{ comment.submissionDate ? comment.submissionDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Comments on this Post</h2>
+    <ul>
+        {% for blogComment in comment.blog.comments %}
+            <li>{{ blogComment.content }} - {{ blogComment.submissionDate ? blogComment.submissionDate|date('Y-m-d') : '' }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_comments_index') }}">Back to Comment List</a>
+
+    <a href="{{ path('app_comments_edit', {'id': comment.id}) }}">Edit</a>
+
+    {{ include('comments/_delete_form.html.twig') }}
+{% endblock %}
+
