@@ -219,8 +219,10 @@
                           </div>
                           {{ form_errors(registrationForm.phoneNumber) }}
                       </div>
-                            <label class="form-check-label">Gender</label>
-                            <div class="col mt-2">
+                            
+                            <div class="col-md-6">
+                               <label class="form-check-label">Gender</label>
+                              <div class="col mt-2">
                                 <div class="form-check form-check-inline">
                                     {{ form_widget(registrationForm.gender.0, {'attr': {'class': 'form-check-input', 'checked': 'checked'}}) }}
                                     <label for="{{ registrationForm.gender.0.vars.id }}" class="form-check-label required">Male</label>
@@ -229,7 +231,18 @@
                                     {{ form_widget(registrationForm.gender.1, {'attr': {'class': 'form-check-input'}}) }}
                                     <label for="{{ registrationForm.gender.1.vars.id }}" class="form-check-label required">Female</label>
                                 </div>
-                            </div>
+                              </div>                  
+                            </div> 
+                            <div class="col-md-6">
+                              <div class="row g-2">
+                                <div class="col-md-6">
+                                   {{ form_widget(registrationForm.captcha) }}  
+                                </div>
+                                <div class="col-md-5">
+                                   {{ form_errors(registrationForm.captcha) }}  
+                                </div>                 
+                              </div>
+                            </div>  
                     </div>
                     <div class="pt-4">
                       <input type="hidden" name="registration_type" value="patient">
@@ -332,6 +345,10 @@
                           </div>
                         </div> 
                       </div>
+                      <div class="mx-auto" style="width:fit-content;">
+                        {{ form_widget(registrationForm2.captcha) }}    
+                        {{ form_errors(registrationForm2.captcha) }}                 
+                      </div>  
                     </div>
                     <div class="pt-4">
                       <input type="hidden" name="registration_type" value="doctor">
@@ -400,8 +417,10 @@
                         {# <input class="form-control" type="file" id="formFile"> #}
                         {{ form_widget(registrationForm3.certification, { 'attr': {'class': 'form-control'} }) }}
                     </div>
-                      <label class="form-check-label">Work time</label>
-                          <div class="col mt-2">
+                      
+                          <div class="col-md-6">
+                             <label class="form-check-label">Work time</label>
+                            <div class="col mt-2">
                                 <div class="form-check form-check-inline">
                                     {{ form_widget(registrationForm3.pharmacytype.0, {'attr': {'class': 'form-check-input', 'checked': 'checked'}}) }}
                                     <label for="{{ registrationForm3.pharmacytype.0.vars.id }}" class="form-check-label required">Day</label>
@@ -410,7 +429,12 @@
                                     {{ form_widget(registrationForm3.pharmacytype.1, {'attr': {'class': 'form-check-input'}}) }}
                                     <label for="{{ registrationForm3.pharmacytype.1.vars.id }}" class="form-check-label required">Night</label>
                                 </div>
-                          </div>
+                            </div>                    
+                          </div>  
+                          <div class="col-md-6">
+                            {{ form_widget(registrationForm3.captcha) }}    
+                            {{ form_errors(registrationForm3.captcha) }}                 
+                          </div>  
                     </div>
                     <div class="pt-4">
                       <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
@@ -491,6 +515,10 @@
                                 </div>
                         </div>
                       </div> 
+                      <div class="col-md-6">
+                        {{ form_widget(registrationForm4.captcha) }}                    
+                        {{ form_errors(registrationForm4.captcha) }} 
+                      </div>  
                     </div>
                     <div class="pt-4">
                       <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
@@ -571,6 +599,10 @@
                                 </div>
                         </div>
                       </div> 
+                      <div class="col-md-6">
+                        {{ form_widget(registrationForm5.captcha) }}                    
+                        {{ form_errors(registrationForm5.captcha) }} 
+                      </div> 
                     </div>
                     <div class="pt-4">
                       <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
@@ -594,15 +626,15 @@
           </div>
 
           <div class="d-flex justify-content-center">
-            <a href="{{asset('javascript:;')}}" class="btn btn-icon btn-label-facebook me-3">
+            <a href="" class="btn btn-icon btn-label-facebook me-3">
               <i class="tf-icons bx bxl-facebook"></i>
             </a>
 
-            <a href="{{asset('javascript:;')}}" class="btn btn-icon btn-label-google-plus me-3">
+            <a href="{{path('connect_google_start')}}" class="btn btn-icon btn-label-google-plus me-3">
               <i class="tf-icons bx bxl-google-plus"></i>
             </a>
 
-            <a href="{{asset('javascript:;')}}" class="btn btn-icon btn-label-twitter">
+            <a href="" class="btn btn-icon btn-label-twitter">
               <i class="tf-icons bx bxl-twitter"></i>
             </a>
           </div>

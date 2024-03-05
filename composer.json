@@ -11,6 +11,8 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "2.18.0",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "knpuniversity/oauth2-client-bundle": "^2.18",
+        "league/oauth2-google": "^4.0",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
@@ -26,7 +28,8 @@
         "symfony/yaml": "5.4.*",
         "symfonycasts/reset-password-bundle": "^1.14",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "victor-prdh/recaptcha-bundle": "^1.8"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.50",
