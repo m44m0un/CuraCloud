@@ -21,3 +21,5 @@ document.addEventListener('DOMContentLoaded', function () {
   var myDropzone = new Dropzone("#dropzone-basic", { /* your options here */ });
   //fix radio form class in register
   
+
+  

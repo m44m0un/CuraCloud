@@ -80,6 +80,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $pharmacytype = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isbanned = null;
+
+    public function __construct()
+    {
+        $this->inscriptionDate= new \DateTime();
+        $this->isbanned= 0;
+    }
 
     public function getId(): ?int
     {
@@ -282,6 +290,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
         return $this;
     }
+
+    public function Isbanned(): ?bool
+    {
+        return $this->isbanned;
+    }
+
+    public function setIsbanned(?bool $isbanned): static
+    {
+        $this->isbanned = $isbanned;
+
+        return $this;
+    }
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -306,4 +326,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you want to return the user's id as a string representation
         return strval($this->getId());
     }
+
+    
 }

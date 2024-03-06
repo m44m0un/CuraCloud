@@ -89,13 +89,16 @@ class GoogleAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // change "app_homepage" to some route in your app
-        //$targetUrl = $this->router->generate('app_user');
+        $user = $token->getUser();
 
-        //return new RedirectResponse($targetUrl);
-    
-        // or, on success, let the request continue to be handled by the controller
-        return null;
+        // Assuming your User entity has a method like isBanned()
+        if ($user->isBanned()) {
+            // User is banned, redirect to logout
+            return new RedirectResponse($this->router->generate('app_logout'));
+        }
+
+        // User is not banned, redirect to the desired route
+        return new RedirectResponse($this->router->generate('app_user'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
