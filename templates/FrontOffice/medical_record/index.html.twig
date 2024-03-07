@@ -1,94 +1,64 @@
-{% extends 'base.html.twig' %}
+{% extends 'newbase.html.twig' %}
 
-{% block title %}MedicalRecord index{% endblock %}
+
 
 {% block stylesheets %}
-    <style>
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+{{ parent() }}
 
-        .table th, .table td {
-            padding: 8px;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .table th {
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .table tbody tr:nth-of-type(odd) {
-            background-color: #f8f9fa;
-        }
-
-        .table tbody tr:nth-of-type(even) {
-            background-color: #ffffff;
-        }
-
-        .table td.actions a {
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        .btn-create-new {
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    </style>
 {% endblock %}
 
 {% block body %}
-    <h1>MedicalRecord index</h1>
+<div class="container mt-4">
+    <h2 class="mb-4">Medical Records</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Medical History</th>
-                <th>Surgical History</th>
-                <th>Family History</th>
-                <th>Allergies</th>
-                <th>Height</th>
-                <th>Weight</th>
-                <th>Blood Type</th>
-                <th>Diseases</th>
-                <th>Medications</th>
-                <th>Vaccines</th>
-                <th class="actions">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="mb-3">
+            <a href="{{ path('user_medical_record_new') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create New Record</a>
+    </div>
+
+    <!-- Search Form -->
+    <div class="mb-3">
+        <form method="GET" action="" class="form-inline">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search records..." aria-label="Search records" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Height (cm)</th>
+                    <th>Weight (kg)</th>
+                    <th>Blood Type</th>
+                    <th>Diseases</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for medical_record in medical_records %}
                 <tr>
-                    <td>{{ medical_record.id }}</td>
-                    <td>{{ medical_record.medicalHistory }}</td>
-                    <td>{{ medical_record.surgicalHistory }}</td>
-                    <td>{{ medical_record.familyHistory }}</td>
-                    <td>{{ medical_record.allergies }}</td>
+                    <td>{{ medical_record.patientName }}</td>
                     <td>{{ medical_record.height }}</td>
                     <td>{{ medical_record.weight }}</td>
                     <td>{{ medical_record.bloodType }}</td>
                     <td>{{ medical_record.diseases }}</td>
-                    <td>{{ medical_record.medications }}</td>
-                    <td>{{ medical_record.vaccines }}</td>
-                    <td class="actions">
-                        <a href="{{ path('app_medical_record_show', {'id': medical_record.id}) }}" class="btn btn-sm btn-primary">Show</a>
-                        <a href="{{ path('app_medical_record_edit', {'id': medical_record.id}) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <td class="text-center">
+                        <a href="{{ path('user_medical_record_show', {'id': medical_record.id}) }}" class="btn btn-outline-info btn-sm me-1"><i class="fas fa-eye"></i></a>
+                        <a href="{{ path('user_medical_record_edit', {'id': medical_record.id}) }}" class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-edit"></i></a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="12">No records found</td>
+                    <td colspan="11" class="text-center">No records found.</td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('app_medical_record_new') }}" class="btn btn-success btn-create-new">Create New</a>
+</div>
 {% endblock %}
+

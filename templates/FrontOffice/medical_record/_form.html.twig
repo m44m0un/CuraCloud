@@ -1,4 +1,14 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card-body">
+    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': ''}}) }}
+        {% for field in form %}
+        <div class="mb-3">
+             {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(field, {'attr': {'class': 'text-danger'}}) }}
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+    {{ form_end(form) }}
+</div>

@@ -1,0 +1,33 @@
+{# {% extends 'editBlog.html.twig' %} #}
+{% extends 'newbase.html.twig' %}
+
+{% block title %}Edit Blog{% endblock %}
+
+{% block body %}
+
+     <section class="module bg-dark-30 about-page-header" data-background="{{ blog.image }}">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="module-title font-alt mb-0">Forms</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+     <h4 class="font-alt mb-0">Edit Blog</h4>
+     <hr class="divider-w mt-10 mb-20">
+
+    {{ include('blog/_form.html.twig', {'button_label': 'Update'}) }}
+    <br></br>
+    <button class="btn btn-primary btn-round"><a href="{{ path('app_blog_index') }}">Back to Blog List </a></button>
+    <br></br>
+
+    {{ include('blog/_delete_form.html.twig') }}
+    </div>
+    </div>
+{% endblock %} 
+
+

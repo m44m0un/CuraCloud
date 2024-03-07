@@ -1,0 +1,54 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}New Medication{% endblock %}
+
+{% block navbar %}
+    {% block user_window %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h5>Create New Medication</h5>
+    
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form'}, 'action': path('app_meds_new')}) }}
+    
+    <!-- Name Field -->
+    <div class="mb-3">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Medication name'}}) }}
+        {{ form_errors(form.name) }}
+    </div>
+    
+    <!-- Dose Field -->
+    <div class="mb-3">
+        {{ form_label(form.dose) }}
+        {{ form_widget(form.dose, {'attr': {'class': 'form-control', 'placeholder': 'Medication dose'}}) }}
+        {{ form_errors(form.dose) }}
+    </div>
+    
+    <!-- Price Field -->
+    <div class="mb-3">
+        {{ form_label(form.price) }}
+        {{ form_widget(form.price, {'attr': {'class': 'form-control', 'placeholder': 'Medication price'}}) }}
+        {{ form_errors(form.price) }}
+    </div>
+
+    <!-- Additional Fields as needed -->
+    <!-- Example: Name, Dose, Price -->
+    <!-- Add your additional fields here following the same structure -->
+  
+    <!-- Button to trigger form submission -->
+     <div style="margin-bottom: 30px;"></div> <!-- Add some space here -->
+  
+    <div class="text-center"> <!-- Center the buttons -->
+        <button type="submit" class="btn rounded-pill btn-outline-primary">Submit</button>
+    </div>
+    <div class="text-center mt-3"> <!-- Center the back button -->
+        <a href="{{ path('app_meds_index') }}" class="btn rounded-pill btn-outline-primary">Back to list</a>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

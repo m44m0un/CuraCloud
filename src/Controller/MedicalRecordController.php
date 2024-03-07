@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MedicalRecordController extends AbstractController
 {
     // Admin Routes
-    #[Route('admin/medical/record/', name: 'admin_medical_record_index', methods: ['GET'])]
+    #[Route('doctor/medical/record/', name: 'admin_medical_record_index', methods: ['GET'])]
     public function indexAdmin(MedicalRecordRepository $medicalRecordRepository): Response
     {
         return $this->render('BackOffice/medical_record/index.html.twig', [
@@ -23,7 +23,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('admin/medical/record/new', name: 'admin_medical_record_new', methods: ['GET', 'POST'])]
+    #[Route('doctor/medical/record/new', name: 'admin_medical_record_new', methods: ['GET', 'POST'])]
     public function newAdmin(Request $request, EntityManagerInterface $entityManager): Response
     {
         $medicalRecord = new MedicalRecord();
@@ -43,7 +43,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('admin/medical/record/{id}', name: 'admin_medical_record_show', methods: ['GET'])]
+    #[Route('doctor/medical/record/{id}', name: 'admin_medical_record_show', methods: ['GET'])]
     public function showAdmin(MedicalRecord $medicalRecord): Response
     {
         return $this->render('BackOffice/medical_record/show.html.twig', [
@@ -51,7 +51,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('admin/medical/record/{id}/edit', name: 'admin_medical_record_edit', methods: ['GET', 'POST'])]
+    #[Route('doctor/medical/record/{id}/edit', name: 'admin_medical_record_edit', methods: ['GET', 'POST'])]
     public function editAdmin(Request $request, MedicalRecord $medicalRecord, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MedicalRecordType::class, $medicalRecord);
@@ -69,7 +69,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('admin/medical/record/{id}/delete', name: 'admin_medical_record_delete', methods: ['POST'])]
+    #[Route('doctor/medical/record/{id}/delete', name: 'admin_medical_record_delete', methods: ['POST'])]
     public function deleteAdmin(Request $request, MedicalRecord $medicalRecord, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$medicalRecord->getId(), $request->request->get('_token'))) {
@@ -81,7 +81,7 @@ class MedicalRecordController extends AbstractController
     }
 
     // User Routes
-    #[Route('/user/medical/record/', name: 'user_medical_record_index', methods: ['GET'])]
+    #[Route('/patient/medical/record/', name: 'user_medical_record_index', methods: ['GET'])]
     public function indexUser(MedicalRecordRepository $medicalRecordRepository): Response
     {
         return $this->render('FrontOffice/medical_record/index.html.twig', [
@@ -89,7 +89,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('/user/medical/record/new', name: 'user_medical_record_new', methods: ['GET', 'POST'])]
+    #[Route('/patient/medical/record/new', name: 'user_medical_record_new', methods: ['GET', 'POST'])]
     public function newUser(Request $request, EntityManagerInterface $entityManager): Response
     {
         $medicalRecord = new MedicalRecord();
@@ -109,7 +109,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('/user/medical/record/{id}', name: 'user_medical_record_show', methods: ['GET'])]
+    #[Route('/patient/medical/record/{id}', name: 'user_medical_record_show', methods: ['GET'])]
     public function showUser(MedicalRecord $medicalRecord): Response
     {
         return $this->render('FrontOffice/medical_record/show.html.twig', [
@@ -117,7 +117,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('/user/medical/record/{id}/edit', name: 'user_medical_record_edit', methods: ['GET', 'POST'])]
+    #[Route('/patient/medical/record/{id}/edit', name: 'user_medical_record_edit', methods: ['GET', 'POST'])]
     public function editUser(Request $request, MedicalRecord $medicalRecord, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MedicalRecordType::class, $medicalRecord);
@@ -135,7 +135,7 @@ class MedicalRecordController extends AbstractController
         ]);
     }
 
-    #[Route('/user/medical/record/{id}/delete', name: 'user_medical_record_delete', methods: ['POST'])]
+    #[Route('/patient/medical/record/{id}/delete', name: 'user_medical_record_delete', methods: ['POST'])]
     public function deleteUser(Request $request, MedicalRecord $medicalRecord, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$medicalRecord->getId(), $request->request->get('_token'))) {

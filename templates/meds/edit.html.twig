@@ -1,0 +1,28 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}Edit Medication{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Edit Medication</h1>
+
+        <!-- Removed the outer div here and directly start with the card -->
+
+        <div class="card-body">
+            {# Including the form with the specified button label #}
+            {{ include('meds/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a href="{{ path('app_meds_index') }}" class="btn rounded-pill btn-outline-primary"><i class="fas fa-arrow-left"></i> Back to list</a>
+            </div>
+            <div class="col-auto">
+                {# Including the delete form #}
+                {{ include('meds/_delete_form.html.twig') }}
+            </div>
+        </div> 
+    </div>
+</body>
+{% endblock %}

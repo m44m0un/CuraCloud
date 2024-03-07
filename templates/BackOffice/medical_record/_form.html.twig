@@ -2,9 +2,9 @@
     {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': ''}}) }}
         {% for field in form %}
         <div class="mb-3">
-            {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+             {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(field, {'attr': {'class': 'invalid-feedback'}}) }}
+            {{ form_errors(field, {'attr': {'class': 'text-danger'}}) }}
         </div>
         {% endfor %}
         <div class="d-flex justify-content-end">

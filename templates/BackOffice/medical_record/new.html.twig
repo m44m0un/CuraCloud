@@ -1,6 +1,6 @@
-{% extends 'Backoffice/base.html.twig' %}
+{% extends 'BaseBack.html.twig' %}
 
-{% block title %}New Medical Record{% endblock %}
+
 
 {% block body %}
 <div class="container mt-4">
@@ -9,69 +9,75 @@
         <a href="{{ path('admin_medical_record_index') }}" class="btn btn-secondary">Back to list</a>
     </div>
     {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form'}}) }}
-    
-    <!-- Medical History Field -->
+          
+     <div class="mb-3">
+        {{ form_label(form.patientName) }}
+        {{ form_widget(form.patientName, {'attr': {'class': 'form-control', 'placeholder': "Write the patient's name"}}) }}
+        {{ form_errors(form.patientName) }}
+    </div>
+
     <div class="mb-3">
         {{ form_label(form.medicalHistory) }}
         {{ form_widget(form.medicalHistory, {'attr': {'class': 'form-control', 'placeholder': 'Detailed medical history'}}) }}
         {{ form_errors(form.medicalHistory) }}
     </div>
     
-    <!-- Surgical History Field -->
     <div class="mb-3">
         {{ form_label(form.surgicalHistory) }}
         {{ form_widget(form.surgicalHistory, {'attr': {'class': 'form-control', 'placeholder': 'Any surgical history'}}) }}
         {{ form_errors(form.surgicalHistory) }}
     </div>
     
-    <!-- Family History Field -->
     <div class="mb-3">
         {{ form_label(form.familyHistory) }}
         {{ form_widget(form.familyHistory, {'attr': {'class': 'form-control', 'placeholder': 'Family medical history'}}) }}
         {{ form_errors(form.familyHistory) }}
     </div>
-        <!-- Allergies Field -->
+
     <div class="mb-3">
         {{ form_label(form.allergies) }}
         {{ form_widget(form.allergies, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
         {{ form_errors(form.allergies) }}
     </div>
-    <!-- Allergies Field -->
+
     <div class="mb-3">
         {{ form_label(form.height) }}
-        {{ form_widget(form.height, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.height, {'attr': {'class': 'form-control', 'placeholder': 'e.g., 175 cm'}}) }}
         {{ form_errors(form.height) }}
     </div>
-        <!-- Height Field -->
+
     <div class="mb-3">
         {{ form_label(form.weight) }}
-        {{ form_widget(form.weight, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.weight, {'attr': {'class': 'form-control', 'placeholder': 'e.g., 70 kg'}}) }}
         {{ form_errors(form.weight) }}
     </div>
+
         <div class="mb-3">
         {{ form_label(form.bloodType) }}
-        {{ form_widget(form.bloodType, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.bloodType, {'attr': {'class': 'form-control', 'placeholder': 'e.g., A+, O-, AB, B+'}}) }}
         {{ form_errors(form.bloodType) }}
     </div>    
          <div class="mb-3">
         {{ form_label(form.diseases) }}
-        {{ form_widget(form.diseases, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.diseases, {'attr': {'class': 'form-control', 'placeholder': 'e.g., Diabetes, Hypertension, Asthma'}}) }}
         {{ form_errors(form.diseases) }}
     </div>     
         <div class="mb-3">
         {{ form_label(form.medications) }}
-        {{ form_widget(form.medications, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.medications, {'attr': {'class': 'form-control', 'placeholder': 'e.g., Metformin, Lisinopril, Amoxicillin'}}) }}
         {{ form_errors(form.medications) }}
     </div>    
            <div class="mb-3">
         {{ form_label(form.vaccines) }}
-        {{ form_widget(form.vaccines, {'attr': {'class': 'form-control', 'placeholder': 'Known allergies'}}) }}
+        {{ form_widget(form.vaccines, {'attr': {'class': 'form-control', 'placeholder': 'e.g., Hepatitis B, MMR, COVID-19'}}) }}
         {{ form_errors(form.vaccines) }}
-    </div>    
-    <!-- Additional Fields as needed -->
-    <!-- Example: Height, Weight, Blood Type, Diseases, Medications, Vaccines -->
-    <!-- Add your additional fields here following the same structure -->
-
+    </div>   
+    <div class="mb-3">
+        {{ form_label(form.id_patient) }}
+        {{ form_widget(form.id_patient, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.id_patient) }}
+    </div>
+    
     <button type="submit" class="btn btn-primary">Submit</button>
     {{ form_end(form) }}
 </div>

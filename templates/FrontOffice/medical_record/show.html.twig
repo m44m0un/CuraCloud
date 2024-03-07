@@ -1,62 +1,74 @@
-{% extends 'base.html.twig' %}
+{% extends 'newbase.html.twig' %}
 
-{% block title %}MedicalRecord{% endblock %}
+
 
 {% block body %}
-    <h1>MedicalRecord</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Medical Record Details</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ medical_record.id }}</td>
-            </tr>
-            <tr>
-                <th>MedicalHistory</th>
-                <td>{{ medical_record.medicalHistory }}</td>
-            </tr>
-            <tr>
-                <th>SurgicalHistory</th>
-                <td>{{ medical_record.surgicalHistory }}</td>
-            </tr>
-            <tr>
-                <th>FamilyHistory</th>
-                <td>{{ medical_record.familyHistory }}</td>
-            </tr>
-            <tr>
-                <th>Allergies</th>
-                <td>{{ medical_record.allergies }}</td>
-            </tr>
-            <tr>
-                <th>Height</th>
-                <td>{{ medical_record.height }}</td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td>{{ medical_record.weight }}</td>
-            </tr>
-            <tr>
-                <th>BloodType</th>
-                <td>{{ medical_record.bloodType }}</td>
-            </tr>
-            <tr>
-                <th>Diseases</th>
-                <td>{{ medical_record.diseases }}</td>
-            </tr>
-            <tr>
-                <th>Medications</th>
-                <td>{{ medical_record.medications }}</td>
-            </tr>
-            <tr>
-                <th>Vaccines</th>
-                <td>{{ medical_record.vaccines }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_medical_record_index') }}">back to list</a>
-
-    <a href="{{ path('app_medical_record_edit', {'id': medical_record.id}) }}">edit</a>
-
-    {{ include('medical_record/_delete_form.html.twig') }}
+ 
+ 
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Record n°{{ medical_record.id }}</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Patient Name</th>
+                            <td>{{ medical_record.patientName }}</td>
+                        </tr>                      
+                        <tr>
+                            <th scope="row">Medical History</th>
+                            <td>{{ medical_record.medicalHistory }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Surgical History</th>
+                            <td>{{ medical_record.surgicalHistory }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Family History</th>
+                            <td>{{ medical_record.familyHistory }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Allergies</th>
+                            <td>{{ medical_record.allergies }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Height</th>
+                            <td>{{ medical_record.height }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Weight</th>
+                            <td>{{ medical_record.weight }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Blood Type</th>
+                            <td>{{ medical_record.bloodType }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Diseases</th>
+                            <td>{{ medical_record.diseases }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Medications</th>
+                            <td>{{ medical_record.medications }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Vaccines</th>
+                            <td>{{ medical_record.vaccines }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('user_medical_record_index') }}" class="btn btn-secondary">Back to List</a>
+            <div>
+                <a href="{{ path('user_medical_record_edit', {'id': medical_record.id}) }}" class="btn btn-primary">Edit</a>
+                {{ include('FrontOffice/medical_record/_delete_form.html.twig') }}
+            </div>
+        
+  
+</div>
 {% endblock %}

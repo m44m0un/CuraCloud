@@ -1,0 +1,25 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}Edit Prescription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Edit Prescription</h1>
+
+  
+    <div class="card-body">
+        {# Including the form with the specified button label #}
+        {{ include('prescription/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="{{ path('admin_prescription_index') }}" class="btn rounded-pill btn-outline-primary"> Back to list</a>
+        </div>
+        <div class="col-auto">
+            {# Including the delete form #}
+            {{ include('prescription/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

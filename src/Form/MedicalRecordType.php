@@ -18,29 +18,38 @@ class MedicalRecordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('patientName', TextareaType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
+              ])
             ->add('medicalHistory', TextareaType::class, [
-                'constraints' => new NotBlank(),
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('surgicalHistory', TextareaType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('familyHistory', TextareaType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('allergies', TextType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('height', NumberType::class, [
                 'constraints' => [
-                    new NotBlank(),
-                    new Range(['min' => 0]), // Ensure height is positive
                 ],
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('weight', NumberType::class, [
                 'constraints' => [
-                    new NotBlank(),
-                    new Range(['min' => 0]), // Ensure weight is positive
                 ],
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
+                'label' => 'Weight (kg)'
             ])
             ->add('bloodType', ChoiceType::class, [
                 'choices' => [
@@ -53,18 +62,22 @@ class MedicalRecordType extends AbstractType
                     'O+' => 'O+',
                     'O-' => 'O-',
                 ],
-                'placeholder' => 'Select a blood type',
-                'constraints' => new NotBlank(),
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('diseases', TextareaType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('medications', TextareaType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('vaccines', TextareaType::class, [
-                // Optional field, no constraints needed
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
             ])
+            ->add('id_patient')
         ;
     }
 

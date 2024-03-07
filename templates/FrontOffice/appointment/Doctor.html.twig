@@ -1,0 +1,61 @@
+{% extends 'newbase.html.twig' %}
+
+{% block body %}
+	<div class="container mt-4">
+		<a href="{{ path('user_app_appointment_index') }}" class="btn btn-outline-secondary mb-3">Back to Appointment List</a>
+		<h5 class="mb-4">Doctors List</h5>
+		<div class="table-responsive">
+			<table class="table table-hover shadow-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Email</th>
+						<th>Address</th>
+						<th>Phone Number</th>
+						<th>Average Rating</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for doctor in doctors %}
+						<tr>
+							<td>{{ doctor.firstName }}</td>
+							<td>{{ doctor.lastName }}</td>
+							<td>{{ doctor.email }}</td>
+							<td>{{ doctor.address }}</td>
+							
+							<td>{{ doctor.phoneNumber }}</td>
+                            <td>
+								{% if ratings[doctor.id] is defined %}
+									{% set rating = ratings[doctor.id]|number_format(2) %}
+									{% for i in 1..5 %}
+										{% if i <= rating %}
+											<i class="fas fa-star" style="color: gold;"></i>
+										{% elseif i <= (rating|round) %}
+											<i class="fas fa-star-half-alt" style="color: gold;"></i>
+										{% else %}
+											<i class="far fa-star" style="color: gold;"></i>
+										{% endif %}
+									{% endfor %}
+									<span>({{ rating }})</span>
+								{% else %}
+									No ratings yet
+								{% endif %}
+							</td>   
+							<td class="text-center">
+								<a href="{{ path('user_app_appointment_new', {'id_doctor': doctor.id}) }}" class="btn btn-outline-success btn-sm">
+									<i class="fas fa-plus"></i> Select
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7" class="text-center">No doctors found.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

@@ -1,39 +1,80 @@
-{% extends 'FrontOffice/baseAhmed/base.html.twig' %}
-
-{% block title %}Appointment index{% endblock %}
+{% extends 'newbase.html.twig' %}
 
 {% block body %}
-    <h1>Appointment index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Status</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for appointment in appointments %}
-            <tr>
-                <td>{{ appointment.description }}</td>
-                <td>{{ appointment.status }}</td>
-                <td>{{ appointment.startDate ? appointment.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ appointment.endDate ? appointment.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('user_app_appointment_show', {'id': appointment.id}) }}">show</a>
-                    <a href="{{ path('user_app_appointment_edit', {'id': appointment.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="container mt-4">
 
-    <a href="{{ path('user_app_appointment_new') }}">Create new</a>
+    <div class="mb-3">
+        <a href="{{ path('doctors_list') }}" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i>
+            Create New Appointment</a>
+    </div>
+    <div class="mb-3">
+    
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Rating</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td class="text-center">{{ appointment.description }}</td>
+                        <td class="text-center">
+                            <span class="badge rounded-pill" style="background-color:
+                                                                    {% if appointment.status|lower == 'accepted' %}
+                                                                    #28a745
+                                                                    {% elseif appointment.status|lower == 'completed' %}
+                                                                    #007bff
+                                                                    {% elseif appointment.status|lower == 'scheduled' %}
+                                                                    #ffc107
+                                                                    {% elseif appointment.status|lower == 'cancelled' %}
+                                                                    #dc3545
+                                                                    {% else %}
+                                                                    #6c757d
+                                                                    {% endif %}
+                                                                    ">
+                                {{ appointment.status }}
+                            </span>
+                        </td>
+                 <td class="text-center">
+                            {% if appointment.rating is not null %}
+                                {% for i in 1..5 %}
+                                    {% if i <= appointment.rating %}
+                                        <i class="fas fa-star" style="color: gold;"></i>
+                                    {% else %}
+                                        <i class="far fa-star" style="color: gold;"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <a href="{{ path('rating_add', {'id': appointment.id}) }}" class="btn btn-outline-secondary btn-sm">
+                                    Add Rating
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('user_app_appointment_show', {'id': appointment.id}) }}" class="btn btn-outline-info btn-sm me-1">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ path('user_app_appointment_edit', {'id': appointment.id}) }}" class="btn btn-outline-warning btn-sm me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No appointments found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}

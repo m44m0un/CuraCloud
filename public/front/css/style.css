@@ -248,12 +248,12 @@ a,
 }
 
 .bg-dark {
-  background: #011663;
+  background: #111;
 }
 
 .bg-dark-30:before {
   position: absolute;
-  background: #011663;
+  background: rgba(2, 2, 2, 0.4);
   content: " ";
   height: 100%;
   width: 100%;
@@ -263,7 +263,7 @@ a,
 
 .bg-dark-60:before {
   position: absolute;
-  background: #011663;
+  background: rgba(34, 34, 34, 0.8);
   content: " ";
   height: 100%;
   width: 100%;
@@ -273,7 +273,7 @@ a,
 
 .bg-dark-90:before {
   position: absolute;
-  background: #011663;
+  background: rgba(34, 34, 34, 0.9);
   content: " ";
   height: 100%;
   width: 100%;
@@ -1239,7 +1239,7 @@ General Styles - Owlcarousel
 	Navbar
 --------------------------------------------------------------*/
 .navbar-custom {
-  background-color: #011663;
+  background-color: rgba(10, 10, 10, 0.9);
   border: 0;
   border-radius: 0;
   z-index: 1000;
@@ -1255,7 +1255,7 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .dropdown-menu {
-  background: #011663;
+  background: rgba(26, 26, 26, 0.9);
   border-radius: 0;
   border: 0;
   padding: 0;
@@ -1275,14 +1275,14 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .dropdown-menu > li > a {
-  border-bottom: 1px solid #011663 !important;
+  border-bottom: 1px solid rgba(73, 71, 71, 0.15) !important;
   padding: 11px 15px;
   letter-spacing: 2px;
   color: #999;
 }
 
 .navbar-custom .dropdown-menu .dropdown-menu {
-  border-left: 1px solid #011663;
+  border-left: 1px solid rgba(73, 71, 71, 0.15);
   left: 100%;
   right: auto;
   top: 0;
@@ -1291,7 +1291,7 @@ General Styles - Owlcarousel
 
 .navbar-custom .dropdown-menu.left-side .dropdown-menu {
   border: 0;
-  border-right: 1px solid #011663;
+  border-right: 1px solid rgba(73, 71, 71, 0.15);
   right: 100%;
   left: auto;
 }
@@ -1308,7 +1308,7 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .dropdown-menu > li > a:hover {
-  background: #011663 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 .navbar-custom .dropdown-toggle:after {
@@ -2785,7 +2785,7 @@ Google map
     margin-bottom: 0;
   }
   .navbar-custom li > a:hover {
-    background: #011663 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
   }
   .navbar-custom .navbar-nav .open .dropdown-menu .dropdown-header,
   .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
@@ -2797,7 +2797,7 @@ Google map
   }
   .navbar-custom li a,
   .navbar-custom .dropdown-search {
-    border-bottom: 1px solid #011663 !important;
+    border-bottom: 1px solid rgba(73, 71, 71, 0.15) !important;
   }
   .navbar-custom .dropdown-toggle:after,
   .navbar-custom .dropdown-menu .dropdown-toggle:after {
@@ -2824,11 +2824,11 @@ Google map
   }
   .dropdown-menu.cart-list {
     text-align: left;
-    border-bottom: 1px solid #011663!important;
+    border-bottom: 1px solid rgba(73, 71, 71, 0.15) !important;
   }
   .navbar-cart-item {
     border: none;
-    border-bottom: 1px solid #011663 !important;
+    border-bottom: 1px solid rgba(73, 71, 71, 0.15) !important;
     padding-bottom: 10px;
   }
   .navbar-cart-img {

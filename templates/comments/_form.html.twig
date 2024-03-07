@@ -1,0 +1,14 @@
+{{ form_start(form, {'action': path('app_comments_new', {'blogId': blog.id})}) }}
+    {# {{ form_widget(form) }} #}
+    <div class="form-group">
+    <label for="comments_content" class="required"></label>
+                     
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'style': 'height: 100px;', 'placeholder': 'Comment'}}) }}
+   
+     {# <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Comment"></textarea> #}
+    </div>
+    <button type="submit" class="btn btn-primary btn-round">Post Comment</button>
+{{ form_end(form) }}
+
+

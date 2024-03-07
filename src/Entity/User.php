@@ -3,179 +3,88 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column]
-    private ?int $telNumber = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $sexe = null;
-
-    #[ORM\Column]
-    private ?int $age = null;
-
-    #[ORM\Column]
-    private ?int $role = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $birthDate = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $address = null;
-
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/",
+        message: "Password must have at least 1 (uppercase,lowercase,number,symbol)."
+    )]
+    private ?string $password = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 255)]
+    #[ORM\Column(nullable: true)]
+    private ?string $firstName = null;
+    
+    #[Assert\Length(min: 2, max: 255)]
+    #[ORM\Column(nullable: true)]
+    private ?string $lastName = null;
+    
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: "/^\d{8}$/",
+        message: "Phone number should be 8 digits."
+    )]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $phoneNumber = null;
+    
+    #[Assert\Date]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $birthDate = null;
+
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $gender = null;
+    
+    #[Assert\Length(min: 3)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $inscriptionDate = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $isVerified = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $speciality = null;
+    
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $certification = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $certif = null;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $public_or_private = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $appartenance = null;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $pharmacytype = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $typePhar = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $assuranceName = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): static
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getTelNumber(): ?int
-    {
-        return $this->telNumber;
-    }
-
-    public function setTelNumber(int $telNumber): static
-    {
-        $this->telNumber = $telNumber;
-
-        return $this;
-    }
-
-    public function getSexe(): ?string
-    {
-        return $this->sexe;
-    }
-
-    public function setSexe(string $sexe): static
-    {
-        $this->sexe = $sexe;
-
-        return $this;
-    }
-
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(int $age): static
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getRole(): ?int
-    {
-        return $this->role;
-    }
-
-    public function setRole(int $role): static
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getBirthDate(): ?\DateTimeInterface
-    {
-        return $this->birthDate;
-    }
-
-    public function setBirthDate(\DateTimeInterface $birthDate): static
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): static
-    {
-        $this->address = $address;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -190,26 +99,139 @@ class User
         return $this;
     }
 
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        //$roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+    
+    public function setFirstName(?string $firstName): static
+    {
+        $this->firstName = $firstName;
+    
+        return $this;
+    }
+    
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+    
+    public function setLastName(?string $lastName): static
+    {
+        $this->lastName = $lastName;
+    
+        return $this;
+    }
+    
+    
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+    
+    public function setPhoneNumber(?string $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
+    
+        return $this;
+    }
+
+    public function getBirthDate(): ?string
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?string $birthDate): static
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getGender(): ?bool
+    {
+        return $this->gender;
+    }
+    
+    public function setGender(?bool $gender): static
+    {
+        $this->gender = $gender;
+    
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
     public function getInscriptionDate(): ?\DateTimeInterface
     {
         return $this->inscriptionDate;
     }
 
-    public function setInscriptionDate(\DateTimeInterface $inscriptionDate): static
+    public function setInscriptionDate(?\DateTimeInterface $inscriptionDate): self
     {
         $this->inscriptionDate = $inscriptionDate;
-
-        return $this;
-    }
-
-    public function isIsVerified(): ?bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(?bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
 
         return $this;
     }
@@ -218,59 +240,71 @@ class User
     {
         return $this->speciality;
     }
-
+    
     public function setSpeciality(?string $speciality): static
     {
         $this->speciality = $speciality;
-
+    
         return $this;
     }
 
-    public function getCertif(): ?string
+    public function getCertification(): ?string
     {
-        return $this->certif;
+        return $this->certification;
     }
-
-    public function setCertif(?string $certif): static
+    
+    public function setCertification(?string $certification): static
     {
-        $this->certif = $certif;
-
+        $this->certification = $certification;
+    
         return $this;
     }
 
-    public function isAppartenance(): ?bool
+    public function getPharmacytype(): ?bool
     {
-        return $this->appartenance;
+        return $this->pharmacytype;
     }
-
-    public function setAppartenance(?bool $appartenance): static
+    
+    public function setPharmacytype(?bool $pharmacytype): static
     {
-        $this->appartenance = $appartenance;
-
+        $this->pharmacytype = $pharmacytype;
+    
         return $this;
     }
 
-    public function isTypePhar(): ?bool
+    public function getPublicOrPrivate(): ?bool
     {
-        return $this->typePhar;
+        return $this->public_or_private;
     }
-
-    public function setTypePhar(?bool $typePhar): static
+    
+    public function setPublicOrPrivate(?bool $public_or_private): static
     {
-        $this->typePhar = $typePhar;
-
+        $this->public_or_private = $public_or_private;
+    
         return $this;
     }
-
-    public function getAssuranceName(): ?string
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
     {
-        return $this->assuranceName;
+        return null;
     }
 
-    public function setAssuranceName(?string $assuranceName): static
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
     {
-        $this->assuranceName = $assuranceName;
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+    public function __toString()
+    {
+        // If you want to return the user's id as a string representation
+        return strval($this->getId());
     }
 }

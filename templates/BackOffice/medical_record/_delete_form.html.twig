@@ -1,6 +1,22 @@
-<form method="post" action="{{ path('admin_medical_record_delete', {'id': medical_record.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" class="d-inline">
+
+<form id="deleteForm" method="post" action="{{ path('admin_medical_record_delete', {'id': medical_record.id}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ medical_record.id) }}">
-    <button type="submit" class="btn btn-danger" title="Delete">
-        <i class="fas fa-trash-alt"></i> Delete
-    </button>
+    <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
 </form>
+<script>
+document.getElementById('deleteButton').addEventListener('click', function() {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('deleteForm').submit();
+        }
+    });
+});
+</script>
