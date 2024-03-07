@@ -120,7 +120,7 @@ class UserController extends AbstractController
             $emailContent = $this->renderView('security/email_ban.html.twig');
             $email = (new Email())
             ->from('CuraCloud Bot <no-reply@curacloud.tn>')
-            ->to($user->getEmail())
+            ->to($user->getEmail())//
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
