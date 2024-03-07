@@ -1,0 +1,194 @@
+{% extends 'newbase.html.twig' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+<div class="card-datatable table-responsive"style="padding: 0 40px;">
+    <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap5"><div class="row">
+      <div class="col-sm-12 col-md-6">
+      <h1 class="mb-4 text-center">Diagnostic Request</h1>
+
+        <div class="dataTables_length" id="DataTables_Table_2_length"><label>Show <select name="DataTables_Table_2_length" aria-controls="DataTables_Table_2" class="form-select"><option value="7">7</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="75">75</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"><div id="DataTables_Table_2_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_2"></label></div></div></div>
+        <table class="dt-row-grouping table border-top dataTable dtr-column" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info" style="width: 1131px;">
+        <tbody>
+          <thead>
+                 <tr>
+                      <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 33px; display: none;" aria-label=""></th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 98px;" aria-label="Name: activate to sort column ascending">Patient Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 102px;" aria-label="Email: activate to sort column ascending">Phone number</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 102px;" aria-label="Email: activate to sort column ascending">Doctor Name</th>
+                       <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 121px;" aria-label="Salary: activate to sort column ascending">Analyse Type</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 121px;" aria-label="Salary: activate to sort column ascending">RadioType Type</th>
+                       <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 84px;" aria-label="City: activate to sort column ascending">Doctor Notes</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 118px;" aria-label="Status: activate to sort column ascending">Status</th>
+                       <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" style="width: 89px;" aria-label="Date: activate to sort column ascending">Date</th>
+                     {#  <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 126px;" aria-label="Actions">Actions</th>
+                      <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 126px;" aria-label="Actions">Remove</th>#}
+                      <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 126px;" aria-label="Actions"> Result</th>
+                  </tr>
+                   {% for diagnostic_request in diagnostic_requests %}
+                    <tr>
+                    <td ></td>
+                     <td ></td>
+                     <td></td>
+                       {# <td class="hidden-xs">{{ diagnostic_request.id }}</td>#}
+                        <td>
+                            <h6 class="product-title font-alt">{{ diagnostic_request.analyseType }}</h6>
+                        </td>
+                         <td>
+                            <h6 class="product-title font-alt">{{ diagnostic_request.radioType }}</h6>
+                        </td> 
+                         <td>
+                            <h6 class="product-title font-alt">{{ diagnostic_request.doctorNotes }}</h6>
+                        </td>
+                         <td>
+                            <h6 class="product-title font-alt">{{ diagnostic_request.status }}</h6>
+                        </td>
+                        <td class="hidden-xs">
+                            <h6 class="product-title font-alt">{{ diagnostic_request.creationDate ? diagnostic_request.creationDate|date('Y-m-d') : '' }}</h6>
+                        </td>
+                        <td></td>
+                       
+                        {#<td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.type }}</h5>
+                        </td>#}
+                       {#
+                        <td>
+                            <a href="{{ path('app_diagnostic_request_show', {'id': diagnostic_request.id}) }}">Show</a>
+                            <a href="{{ path('app_diagnostic_request_edit', {'id': diagnostic_request.id}) }}">Edit</a>
+                        </td>
+                        <td class="pr-remove">
+                            <a href="#" title="Remove"><i class="fa fa-times"></i></a>
+                              {{ include('diagnostic_request/_delete_form.html.twig') }}
+                        </td>
+#}
+                       {#  <td>
+                            <a href="{{ path('app_bilan_index', {'id': diagnostic_request.id}) }}">Result</a>
+                            
+                        </td>#}
+                       
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9">No records found</td>
+                    </tr>
+                {% endfor %}
+      </thead>
+      </tbody>
+    </table>
+     {#<a href="{{ path('app_diagnostic_request_new') }}" class="back-to-list-link">#}
+<br>
+<br>
+
+            {#  <button class="btn btn-label-secondary btn-prev" disabled="">
+                  <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                  <span class="align-middle d-sm-inline-block d-none">Create new</span>
+                </button>#}
+            
+  </div>
+
+{% endblock %}
+
+
+
+{#
+{% block body %}
+<br><br>
+   <h1 style="color: #011663; text-align: center; text-decoration: underline; font-style: italic;">DiagnosticRequest index</h1>
+    <div class="container">
+     <br> <br>
+            <form class="row">
+              <div class="col-sm-4 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Diagnostic Type</option>
+                  <option>Analye</option>
+                  <option>Radiologie</option>
+                </select>
+              </div>
+              <div class="col-sm-2 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Woman</option>
+                  <option>Man</option>
+                </select>
+              </div>
+              <div class="col-sm-3 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">All</option>
+                  <option>Pending</option>
+                  <option>In Progress</option>
+                  <option>Completed</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-block btn-round btn-g" type="submit">Apply</button>
+              </div>
+            </form>
+          </div>
+          <br> <br>
+          
+
+   <div class="row">
+    <div class="col-sm-12">
+<table class="table table-striped table-border checkout-table" style="margin-left: 20px;">
+            <tbody>
+                <tr>
+                    <th class="hidden-xs">Id</th>
+                    <th>AnalyseType</th>
+                    <th>CreationDate</th>
+                    <th>Status</th>
+                    <th>DoctorNotes</th>
+                    <th>Type</th>
+                    <th>RadioType</th>
+                    <th>Actions</th>
+                    <th>Remove</th>
+                </tr>
+                {% for diagnostic_request in diagnostic_requests %}
+                    <tr>
+                        <td class="hidden-xs">{{ diagnostic_request.id }}</td>
+                        <td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.analyseType }}</h5>
+                        </td>
+                        <td class="hidden-xs">
+                            <h5 class="product-title font-alt">{{ diagnostic_request.creationDate ? diagnostic_request.creationDate|date('Y-m-d') : '' }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.status }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.doctorNotes }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.type }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="product-title font-alt">{{ diagnostic_request.radioType }}</h5>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_diagnostic_request_show', {'id': diagnostic_request.id}) }}">Show</a>
+                            <a href="{{ path('app_diagnostic_request_edit', {'id': diagnostic_request.id}) }}">Edit</a>
+                        </td>
+                        <td class="pr-remove">
+                            <a href="#" title="Remove"><i class="fa fa-times"></i></a>
+                              {{ include('diagnostic_request/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9">No records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+  <a href="{{ path('app_diagnostic_request_new') }}" class="btn btn-primary">Create New</a>
+<br> <br>
+
+{% endblock %}
+#}

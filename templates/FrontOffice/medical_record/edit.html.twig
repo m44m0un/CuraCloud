@@ -1,0 +1,27 @@
+{% extends 'newbase.html.twig' %}
+
+{% block title %}Edit Medical Record{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Edit Medical Record</h1>
+
+    <!-- Removed the outer div here and directly start with the card -->
+    
+
+   
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="{{ path('user_medical_record_index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Back to list</a>
+        </div>
+        <div class="col-auto">
+            {# Including the delete form #}
+            {{ include('FrontOffice/medical_record/_delete_form.html.twig') }}
+        </div>
+                <div class="card-body">
+            {# Including the form with the specified button label #}
+            {{ include('FrontOffice/medical_record/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

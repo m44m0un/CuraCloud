@@ -1,0 +1,42 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}Medication Details{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">Medication Details</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ med.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dose</th>
+                                <td>{{ med.dose }}</td>
+                            </tr>
+                            <tr>
+                                <th>Price</th>
+                                <td>{{ med.price }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('app_meds_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                        <div>
+                            <a href="{{ path('app_meds_edit', {'id': med.id}) }}" class="btn rounded-pill btn-outline-primary">Edit</a>
+                            {{ include('meds/_delete_form.html.twig', {'button_css': "btn rounded-pill btn-outline-danger"}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

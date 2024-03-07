@@ -1,0 +1,78 @@
+{% extends 'Backoffice/base.html.twig' %}
+
+{% block title %}Appointment Index{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <a href="{{ path('admin_app_appointment_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i> Create New Appointment
+        </a>
+    </div>
+    <div class="mb-3">
+        <form method="GET" action="" class="form-inline">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search records..." aria-label="Search records" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.description }}</td>
+                    <td>
+                        <span class="badge rounded-pill" style="background-color:
+                            {% if appointment.status|lower == 'accepted' %}
+                                #28a745
+                            {% elseif appointment.status|lower == 'completed' %}
+                                #007bff
+                            {% elseif appointment.status|lower == 'scheduled' %}
+                                #ffc107
+                            {% elseif appointment.status|lower == 'cancelled' %}
+                                #dc3545
+                            {% else %}
+                                #6c757d
+                            {% endif %}
+                            ">
+                            {{ appointment.status }}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('admin_app_appointment_show', {'id': appointment.id}) }}" class="btn btn-outline-info btn-sm me-1">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <!-- Accept Button -->
+                        <a href="{{ path('appointment_accept', {'id': appointment.id}) }}" class="btn btn-success btn-sm me-1" onclick="return confirm('Are you sure you want to accept this appointment?');">
+                            <i class="fas fa-check-circle"></i>
+                        </a>
+                        <!-- Decline Button -->
+                        <a href="{{ path('appointment_decline', {'id': appointment.id}) }}" class="btn btn-danger btn-sm me-1" onclick="return confirm('Are you sure you want to decline this appointment?');">
+                            <i class="fas fa-times-circle"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No appointments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

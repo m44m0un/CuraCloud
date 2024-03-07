@@ -1,0 +1,47 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block title %}New Prescription{% endblock %}
+
+{% block navbar %}
+    {% block user_window %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h5>Create New Prescription</h5>
+    
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form'}, 'action': path('admin_prescription_new')}) }}
+    
+    <!-- Duration Field -->
+    <div class="mb-3">
+     {{ form_label(form.duration, 'Prescription') }}
+        {{ form_widget(form.duration, {'attr': {'class': 'form-control', 'placeholder': 'Prescription'}}) }}
+        {{ form_errors(form.duration) }}
+    </div>
+    
+    <!-- Creation Date Field -->
+    <div class="mb-3">
+        {{ form_label(form.creationDate) }}
+        {{ form_widget(form.creationDate, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.creationDate) }}
+    </div>
+
+
+
+    <!-- Additional Fields as needed -->
+    <!-- Add your additional fields here following the same structure -->
+  
+    <div style="margin-bottom: 30px;"></div> <!-- Add some space here -->
+  
+    <div class="text-center"> <!-- Center the buttons -->
+        <button type="submit" class="btn rounded-pill btn-outline-primary">Submit</button>
+    </div>
+    <div class="text-center mt-3"> <!-- Center the back button -->
+        <a href="{{ path('admin_prescription_index') }}" class="btn rounded-pill btn-outline-primary">Back to list</a>
+   
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

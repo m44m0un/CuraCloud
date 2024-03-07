@@ -1,0 +1,65 @@
+{% extends 'BaseBack.html.twig' %}
+
+{% block navbar %}
+    <li class="menu-item active open">
+      <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div class="text-truncate">Users</div>
+              </a>
+
+      
+            <ul class="menu-sub">
+      
+    
+    
+      <li class="menu-item active">
+        <a href="list.html" class="menu-link" >
+                    <div>List</div>
+        </a>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Medications Index</h1>
+
+   
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Dose</th>
+                    <th scope="col">Price</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for med in meds %}
+                <tr>
+                    <td>{{ med.id }}</td>
+                    <td>{{ med.name }}</td>
+                    <td>{{ med.dose }}</td>
+                    <td>{{ med.price }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('app_meds_show', {'id': med.id}) }}" class="btn rounded-pill btn-outline-info"><i class="fas fa-eye"></i></a>
+                        <a href="{{ path('app_meds_edit', {'id': med.id}) }}" class="btn rounded-pill btn-outline-primary"><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No medications found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+         </div>
+
+<div style="margin-bottom: 50px;"></div> <!-- Add some space here -->
+
+    <div class="text-center"> <!-- Center the button -->
+        <a href="{{ path('app_meds_new') }}" class="btn rounded-pill btn-outline-success"> Create New Medication</a>
+    </div>
+</div>
+{% endblock %}

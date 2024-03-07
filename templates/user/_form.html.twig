@@ -1,0 +1,73 @@
+{{ form_start(form,{'attr': {'class': 'row g-3','novalidate':'novalidate'}}) }}
+    <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserFirstName">First Name</label>
+            {# <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" placeholder="John" /> #}
+            {{ form_widget(form.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'John'} }) }}
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Last Name</label>
+            {# <input type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control" placeholder="Doe" /> #}
+          {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Doe'} }) }}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            {# <input type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" placeholder="john.doe.007" /> #}
+          {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'john.doe@gmail.com'} }) }}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Phone Number</label>
+            <div class="input-group input-group-merge">
+                <span class="input-group-text">+216</span>
+                {{ form_widget(form.phoneNumber, { 'attr': {'class': 'form-control phone-mask', 'placeholder': '98 765 243', 'aria-label': '98 765 243'} }) }}          
+                {# <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="202 555 0111" /> #}
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            {{ form_label(form.roles, 'Roles', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form-select', 'multiple': 'multiple', 'aria-label': 'multiple select example'}}) }}
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditTaxID">Birth Date</label>
+            {# <input type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id" placeholder="123 456 7890" /> #}
+            {{ form_widget(form.birthdate, { 'attr': {'class': 'form-control dob-picker flatpickr-input birthdate-input', 'placeholder': 'YYYY-MM-DD', 'readonly': 'readonly'} }) }}
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserPhone">Address</label>
+            <div class="input-group input-group-merge">
+              {# <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="202 555 0111" /> #}
+              {{ form_widget(form.address, { 'attr': {'class': 'form-control', 'placeholder': 'Ariana,Tunis'} }) }}
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserLanguage">Speciality</label>
+            {# <select id="modalEditUserLanguage" name="modalEditUserLanguage" class="select2 form-select" multiple>
+              <option value="">Select</option>
+              <option value="english" selected>English</option>
+              <option value="spanish">Spanish</option>
+              <option value="french">French</option>
+              <option value="german">German</option>
+              <option value="dutch">Dutch</option>
+              <option value="hebrew">Hebrew</option>
+              <option value="sanskrit">Sanskrit</option>
+              <option value="hindi">Hindi</option>
+            </select> #}
+            {{ form_widget(form.speciality, { 'attr': {'class': 'select2 form-select'} }) }}
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserLanguage">Gender</label>
+            {{ form_widget(form.gender, { 'attr': {'class': 'select2 form-select'} }) }}
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Pharmacy Work Hour</label>
+            {{ form_widget(form.pharmacytype, { 'attr': {'class': 'select2 form-select'} }) }}
+          </div>
+           <div class="col-12 col-md-6">
+            <label class="form-label">Public or Private</label>
+            {{ form_widget(form.public_or_private, { 'attr': {'class': 'select2 form-select'} }) }}
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+{{ form_end(form) }}
+          

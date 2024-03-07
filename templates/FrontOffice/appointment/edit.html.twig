@@ -1,0 +1,23 @@
+{% extends 'newbase.html.twig' %}
+
+{% block title %}Edit Appointment{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <h5 class="card-header">Edit Appointment</h5>
+                <div class="card-body">
+                    {{ include('FrontOffice/appointment/_form.html.twig', {'button_label': 'Update'}) }}
+                </div>
+            </div>
+            <div class="mt-3 d-flex justify-content-between">
+                <a href="{{ path('user_app_appointment_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                {{ include('FrontOffice/appointment/_delete_form.html.twig', {'button_css': 'btn btn-danger'}) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
