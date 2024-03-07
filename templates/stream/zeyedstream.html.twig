@@ -1,0 +1,16 @@
+{# templates/stream/stream.html.twig #}
+{% extends 'newbase.html.twig' %}
+
+{% block title %}Stream{% endblock %}
+
+{% block body %}
+    <div id="stream-container">
+        <video id="local-video" autoplay muted></video>
+        <div id="remote-videos"></div>
+    </div>
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script>
+        // Your WebRTC streaming logic will go here
+    </script>
+{% endblock %}

@@ -1,21 +1,21 @@
-{% extends 'editBlog.html.twig' %}
+{% extends 'newbase.html.twig' %}
 
-{% block title %}New Blog{% endblock %}
+{# {% block title %}New Blog{% endblock %} #}
 
 {% block body %}
 
-    <div class="container">
-            <div class="row">
-              <div class="col-sm-8 col-sm-offset-2">
-     <h4 class="font-alt mb-0">Create new Blog</h4>
-     <hr class="divider-w mt-10 mb-20">
-
-    {{ include('blog/_form.html.twig') }}
-
-    
-    <button class="btn btn-g btn-round" type="submit"><a href="{{ path('app_blog_index') }}">back to list</a></button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <h5 class="card-header">Create new Blog</h5>
+                <div class="card-body">
+                    {{ include('blog/_form.html.twig') }}
+                    <button class="btn btn-label-primary" type="submit"><a href="{{ path('app_blog_index') }}">back to list</a></button>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
+</div>
 
-    
 {% endblock %}

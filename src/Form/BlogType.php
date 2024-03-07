@@ -6,17 +6,20 @@ use App\Entity\Blog;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class BlogType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('subject')
             ->add('content')
-            ->add('image')
-            ->add('submissionDate')
+            ->add('subject')
+            ->add('title')
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'mapped' => false,
+            ])
         ;
     }
 

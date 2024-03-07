@@ -1,0 +1,328 @@
+{% extends 'account_details.html.twig' %}
+
+{% block body %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="user-avatar-section">
+          <div class=" d-flex align-items-center flex-column">
+           {% if user.roles is defined and 'ROLE_PATIENT' in user.roles %}
+            <img class="img-fluid rounded my-4" src="{{asset('back/assets/img/avatars/10.png')}}" height="110" width="110" alt="User avatar" />
+            <div class="user-info text-center">
+              <h4 class="mb-2">{{ user.firstName }} {{ user.lastName }}</h4>
+              <span class="badge bg-label-secondary">
+                Patient
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">1.23k</h5>
+              <span>Tasks Done</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">15</h5>
+              <span>Consultations Done</span>
+            </div>
+          </div>
+        </div>
+        <h5 class="pb-2 border-bottom mb-4">Patient Details</h5>
+        <div class="info-container">
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <span class="fw-medium me-2">Email:</span>
+              <span class="badge bg-label-success">{{ user.email }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Contact:</span>
+              <span>{{ user.phoneNumber }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Birth Date:</span>
+              <span>{{ user.birthDate }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Inscription Date:</span>
+              <span>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Gender:</span>
+              <span>{{ user.gender ? 'Female' : 'Male' }}</span>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+          </div>
+        </div>
+        {% elseif user.roles is defined and 'ROLE_DOCTOR' in user.roles %}
+        <img class="img-fluid rounded my-4" src="{{asset('back/assets/img/avatars/10.png')}}" height="110" width="110" alt="User avatar" />
+            <div class="user-info text-center">
+              <h4 class="mb-2">{{ user.firstName }} {{ user.lastName }}</h4>
+              <span class="badge bg-label-secondary">
+                Doctor
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">1.23k</h5>
+              <span>Tasks Done</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">15</h5>
+              <span>Consultations Done</span>
+            </div>
+          </div>
+        </div>
+        <h5 class="pb-2 border-bottom mb-4">Doctor Details</h5>
+        <div class="info-container">
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <span class="fw-medium me-2">Email:</span>
+              <span class="badge bg-label-success">{{ user.email }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Contact:</span>
+              <span>{{ user.phoneNumber }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Birth Date:</span>
+              <span>{{ user.birthDate }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Inscription Date:</span>
+              <span>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Gender:</span>
+              <span>{{ user.gender ? 'Female' : 'Male' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Address:</span>
+              <span>{{ user.address }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Speciality:</span>
+              <span>{{ user.speciality }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Certification:</span>
+              <span>{{ user.certification }}</span>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+          </div>
+        </div>
+        {% elseif user.roles is defined and 'ROLE_PHARMACY' in user.roles %}
+        <img class="img-fluid rounded my-4" src="{{asset('back/assets/img/avatars/10.png')}}" height="110" width="110" alt="User avatar" />
+            <div class="user-info text-center">
+              <h4 class="mb-2">{{ user.firstName }}</h4>
+              <span class="badge bg-label-secondary">
+                Pharmacy
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">1.23k</h5>
+              <span>Tasks Done</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">15</h5>
+              <span>Consultations Done</span>
+            </div>
+          </div>
+        </div>
+        <h5 class="pb-2 border-bottom mb-4">Pharmacy Details</h5>
+        <div class="info-container">
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <span class="fw-medium me-2">Email:</span>
+              <span class="badge bg-label-success">{{ user.email }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Contact:</span>
+              <span>{{ user.phoneNumber }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Inscription Date:</span>
+              <span>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Address:</span>
+              <span>{{ user.address }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Work day:</span>
+              <span>{{ user.pharmacytype ? 'Night' : 'Day' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Certification:</span>
+              <span>{{ user.certification }}</span>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+          </div>
+        </div>
+        {% elseif user.roles is defined and 'ROLE_RADIOLOGY' in user.roles %}
+        <img class="img-fluid rounded my-4" src="{{asset('back/assets/img/avatars/10.png')}}" height="110" width="110" alt="User avatar" />
+            <div class="user-info text-center">
+              <h4 class="mb-2">{{ user.firstName }}</h4>
+              <span class="badge bg-label-secondary">
+                Radiology
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">1.23k</h5>
+              <span>Tasks Done</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">15</h5>
+              <span>Consultations Done</span>
+            </div>
+          </div>
+        </div>
+        <h5 class="pb-2 border-bottom mb-4">Pharmacy Details</h5>
+        <div class="info-container">
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <span class="fw-medium me-2">Email:</span>
+              <span class="badge bg-label-success">{{ user.email }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Contact:</span>
+              <span>{{ user.phoneNumber }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Inscription Date:</span>
+              <span>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Address:</span>
+              <span>{{ user.address }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Public or Private:</span>
+              <span>{{ user.publicOrPrivate ? 'Private' : 'Public' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Certification:</span>
+              <span>{{ user.certification }}</span>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+          </div>
+        </div>
+        {% elseif user.roles is defined and 'ROLE_LAB' in user.roles %}
+            <img class="img-fluid rounded my-4" src="{{asset('back/assets/img/avatars/10.png')}}" height="110" width="110" alt="User avatar" />
+            <div class="user-info text-center">
+              <h4 class="mb-2">{{ user.firstName }}</h4>
+              <span class="badge bg-label-secondary">
+                Laboratory                   
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">1.23k</h5>
+              <span>Tasks Done</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mt-3 gap-3">
+            <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+            <div>
+              <h5 class="mb-0">15</h5>
+              <span>Consultations Done</span>
+            </div>
+          </div>
+        </div>
+        <h5 class="pb-2 border-bottom mb-4">Pharmacy Details</h5>
+        <div class="info-container">
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <span class="fw-medium me-2">Email:</span>
+              <span class="badge bg-label-success">{{ user.email }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Contact:</span>
+              <span>{{ user.phoneNumber }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Inscription Date:</span>
+              <span>{{ user.inscriptionDate ? user.inscriptionDate|date('Y-m-d H:i:s') : '' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Address:</span>
+              <span>{{ user.address }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Public or Private:</span>
+              <span>{{ user.publicOrPrivate ? 'Private' : 'Public' }}</span>
+            </li>
+            <li class="mb-3">
+              <span class="fw-medium me-2">Certification:</span>
+              <span>{{ user.certification }}</span>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+          </div>
+        </div>
+        {% else %}
+        No specific role
+        <div class="d-flex justify-content-center pt-3">
+            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {# <a href="{{ path('app_user') }}">back to list</a>
+
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a> #}
+    
+
+{% endblock %}
+
+{% block edit %}
+
+{{ include('user/edit.html.twig') }}
+
+{% endblock %}

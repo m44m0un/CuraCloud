@@ -1,72 +1,72 @@
-{#{% extends 'base.html.twig' %}#}
-{% extends 'listBlogs.html.twig' %}
+{% extends 'newbase.html.twig' %}
 
 {% block body %}
-    <h1>Latest Blog Posts</h1>
 
-    <div class="container">
-    <div class="row multi-columns-row post-columns">
+<div class="container">
+<script src="{{ asset('path/js/search.js') }}"></script>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="card-header mb-4">Latest Blog Posts</h2>
+        </div>
+
+    </div>
+        <!-- New button for launching a stream -->
+        {# <div class="text-center mt-4">
+            <button id="startStreamBtn" class="btn btn-primary" data-user-id="{{ app.user.id }}" data-route="{{ path('stream', {'userId': app.user.id}) }}">Start Stream</button>
+        </div> #}
+
+
+
+
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
 
         {% for blog in blogs %}
-            <div class="col-sm-6 col-md-4 col-lg-4">
-                <div class="post">
-                  <div class="post-thumbnail"><a href="#"><img src="{{ blog.image }}" alt="Blog Image"></a></div>
-                  <div class="post-header font-alt">
-                    <h2 class="post-title"><a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="post-link">{{ blog.title }}</a></h2>
-                    {# <div class="post-meta">By&nbsp;<a href="#">Andy River</a>&nbsp;| 11 November | 4 Comments #}
-                    <div class="post-meta"><a href="#">{{ blog.subject }}</a>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="post-thumbnail"><a href="#"><img src="{{ asset('images/blogs/' ~ blog.image) }}" alt="Blog Image" style="max-width: 100%; height: 600px;"></a></div>
+                    <div class="card-body">
+                        <h2 class="card-title"><a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="card-link">{{ blog.title }}</a></h2>
+                        <div class="card-text">{{ blog.content|slice(0, 200) ~ (blog.content|length > 200 ? '...' : '') }}</div>
                     </div>
-                  </div>
-                  <div class="post-entry">
-                    <p>{{ blog.content|slice(0, 200) }}{% if blog.content|length > 200 %}...{% endif %}</p>
-                  </div>
-                  <div class="post-more"><a class="more-link"href="{{ path('app_blog_show', {'id': blog.id}) }}">Read more</a></div>
+                    <div class="card-footer">
+                        <div class="post-submission">
+                            {{ blog.submissionDate ? blog.submissionDate|date('Y-m-d H:i') : '' }}
+                        </div>
+                        <div class="post-more"><a class="btn btn-primary" href="{{ path('app_blog_show', {'id': blog.id}) }}">Read more</a></div>
+                    </div>
                 </div>
-              </div>
+            </div>
+            {% if loop.index % 3 == 0 %}
+                </div><div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+            {% endif %}
         {% else %}
-            <p>No blog posts found</p>
+            {% if blogs|length == 0 %}
+                <p class="col-md-12">No blog posts found</p>
+            {% endif %}
         {% endfor %}
-
-    </div>
     </div>
 
-    <a href="{{ path('app_blog_new') }}">Create new</a>
+    {% if totalPages > 1 %}
+        <nav aria-label="Blog pagination">
+            <ul class="pagination justify-content-center">
+                {% if page > 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_blog_index', {'page': page - 1}) }}">Previous</a></li>
+                {% endif %}
+
+                {% for p in 1..totalPages %}
+                    <li class="page-item{% if p == page %} active{% endif %}"><a class="page-link" href="{{ path('app_blog_index', {'page': p}) }}">{{ p }}</a></li>
+                {% endfor %}
+
+                {% if page < totalPages %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_blog_index', {'page': page + 1}) }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+    
+
+
 {% endblock %}
-
-{# {% block body %}
-    <h1>Blog index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Content</th>
-                <th>Subject</th>
-                <th>Image</th>
-                <th>SubmissionDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for blog in blogs %}
-            <tr>
-                <td>{{ blog.id }}</td>
-                <td>{{ blog.content }}</td>
-                <td>{{ blog.subject }}</td>
-                <td>{{ blog.image }}</td>
-                <td>{{ blog.submissionDate ? blog.submissionDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
-                    <a href="{{ path('app_blog_edit', {'id': blog.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_blog_new') }}">Create new</a>
-{% endblock %} #}

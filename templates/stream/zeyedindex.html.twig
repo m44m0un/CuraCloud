@@ -1,0 +1,23 @@
+{# templates/stream/index.html.twig #}
+
+{% extends 'newbase.html.twig' %}
+
+{% block title %}Active Streams{% endblock %}
+
+{% block body %}
+    <h1>Active Streams</h1>
+
+    {% if activeStreams is not empty %}
+        <ul>
+            {% for stream in activeStreams %}
+                <li>
+                    <a href="{{ path('view_stream', {'streamId': stream.id}) }}">
+                        {{ stream.title }} - {{ stream.user.username }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No active streams at the moment.</p>
+    {% endif %}
+{% endblock %}

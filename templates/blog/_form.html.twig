@@ -1,40 +1,39 @@
-{# {{ form_start(form) }}
-    {{ form_widget(form.title,{'attr':{'class':'form-control'}}) }}
-    {{ form_widget(form.subject,{'attr':{'class':'form-control'}}) }}
-    {{ form_widget(form.image,{'attr':{'class':'form-control'}}) }}
-    {{ form_widget(form.content,{'attr':{'class':'form-control'}}) }}
-    {{ form_widget(form.submissionDate,{'attr':{'class':'form-control'}}) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }} #}
-
-
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
 <div class="form-group">
     {{ form_label(form.title) }}
     {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.title) %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form.title) }}</div>
+    {% endif %}
 </div>
 
 <div class="form-group">
     {{ form_label(form.subject) }}
     {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.subject) %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form.subject) }}</div>
+    {% endif %}
 </div>
 
 <div class="form-group">
-    {{ form_label(form.image) }}
-    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+    {{ form_label(form.imageFile) }} {# Use imageFile instead of image here #}
+    {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.imageFile) %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form.imageFile) }}</div>
+    {% endif %}
 </div>
 
 <div class="form-group">
     {{ form_label(form.content) }}
     {{ form_widget(form.content, {'attr': {'class': 'form-control', 'style': 'height: 100px;'}}) }}
+    {% if form_errors(form.content) %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form.content) }}</div>
+    {% endif %}
 </div>
+<br></br>
 
-<div class="form-group">
-    {{ form_label(form.submissionDate) }}
-    {{ form_widget(form.submissionDate, {'attr': {'class': 'form-control'}}) }}
-</div>
-
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn btn-label-primary">{{ button_label|default('Save') }}</button>
+<br></br>
 
 {{ form_end(form) }}
