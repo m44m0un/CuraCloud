@@ -1,0 +1,67 @@
+{% extends 'newbase.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="post">
+                    <div class="post-thumbnail"><a href="#"><img src="{{ asset('images/blogs/' ~ blog.image) }}" alt="Blog Image"></a></div>
+                    <div class="post-header font-alt">
+                        <h1 class="post-title">
+                            <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="post-link">
+                                {{ blog.title }}
+                            </a>
+                        </h1>
+                        <div class="post-meta"><a href="#">{{ blog.subject }}</a></div>
+                    </div>
+                    
+                    <div class="post-entry">
+                        <p>{{ blog.content }}</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary btn-round" ><a href="{{ path('app_blog_index') }}">Back to Blog List</a></button>
+                        <button class="btn btn-primary btn-round"><a href="{{ path('app_blog_edit', {'id': blog.id}) }}">Edit</a></button>
+                        <br> </br>
+                        {{ include('blog/_delete_form.html.twig') }}
+
+                        {% if is_granted('ROLE_USER') %}
+                            {% set currentUser = app.user %}
+                            {% set liked = false %}
+                            {% for like in blog.likes %}
+                                {% if like.user == currentUser %}
+                                    {% set liked = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if liked %}
+                                <form action="{{ path('app_blog_dislike', {'id': blog.id}) }}" method="POST">
+                                    <button type="submit" class="btn btn-primary btn-round">Dislike</button>
+                                </form>
+                            {% else %}
+                                <form action="{{ path('app_blog_like', {'id': blog.id}) }}" method="POST">
+                                    <button type="submit" class="btn btn-primary btn-round">Like ({{ blog.likes|length }})</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        {# Existing comments loop #}
+                        <h2>Comments on this Post</h2>
+                        
+                        <ul>
+                            {% for blogComment in blog.comments %}
+                                <div class="comment-body">
+                                    <p>{{ blogComment.content }} - {{ blogComment.submissionDate ? blogComment.submissionDate|date('Y-m-d') : '' }}</p>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                        
+                        {# New comment form #}
+                        {{ include('comments/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

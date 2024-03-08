@@ -1,0 +1,110 @@
+{% extends 'BaseBack.html.twig' %}
+
+
+{% block body %}
+<div class="col-md-6 col-lg-8 mb-4 mb-md-0">
+    <div class="card">
+      <div class="table-responsive text-nowrap">
+        <table class="table text-nowrap">
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Phone Number</th>
+              <th>Analyse Type</th>
+              <th>Radiologie Type</th>
+              <th>Doctor Notes </th>
+            <th>Status</th>
+            <th>Date</th>
+             <th>Actions</th>
+             <th>Result</th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+            {% for diagnostic_request in diagnostic_requests %}
+            <tr>
+            <td>
+    {% if diagnostic_request.getIdPatient() is not null %}
+        {{ diagnostic_request.getIdPatient().getFullName() }}
+    {% else %}
+        N/A
+    {% endif %}
+</td>
+
+         <td>
+                        {% if diagnostic_request.idPatient is not null and diagnostic_request.idPatient.phoneNumber is not null %}
+                            {{ diagnostic_request.idPatient.phoneNumber }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+               <td>
+                 <h6 class="product-title font-alt">{{ diagnostic_request.analyseType }}</h6>
+                 </td>
+             <td>
+                 <h6 class="product-title font-alt">{{ diagnostic_request.radioType }}</h6>
+             </td> 
+                <td>
+                            <h6 class="product-title font-alt">{{ diagnostic_request.doctorNotes }}</h6>
+                        </td>
+
+                        <td>
+
+                            <h6 
+
+
+                            <span class="badge rounded-pill" style="background-color:
+												   {% if diagnostic_request.status == 'Pending' %}
+												 #28a745
+												 {% elseif diagnostic_request.status == 'In Progress' %}
+														#007bff
+												   {% elseif diagnostic_request.status == 'Completed' %}
+													 #ffc107																																												                                #dc3545
+													  {% else %}																												    #6c757d
+														{% endif %}
+														">
+								{{ diagnostic_request.status }}
+                
+							</span>
+</h6>
+                        </td>
+                        <td class="hidden-xs">
+                            <h6 class="product-title font-alt">{{ diagnostic_request.creationDate ? diagnostic_request.creationDate|date('Y-m-d') : '' }}</h6>
+                        </td>
+  <td>
+    <div class="dropdown">
+        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+            <i class="bx bx-dots-vertical-rounded"></i>
+        </button>
+        <div class="dropdown-menu">
+           <a class="dropdown-item" href="{{ path('app_diagnostic_request_show', {'id': diagnostic_request.id}) }}"><i class="bx bx-edit-alt me-1"></i> View Details</a>
+          {# <a class="dropdown-item" href="#" ><i class="bx bx-trash me-1"></i> Delete</a>#}
+                              {{ include('diagnostic_request/_delete_form.html.twig') }}
+       
+        </div> 
+    </div>
+ </td>
+
+              <td > 
+ {#<a class="dropdown-item" href="{{ path('app_bilan_index2', {'id': diagnostic_request.id}) }}"><i class="product-title font-alt"></i>Resultat</a>#}
+ <a href="{{ path('diagnostic_results', {'id': diagnostic_request.id}) }}">View Results</a>
+              </td>
+
+              
+            </tr>
+            
+            {% else %}
+                    <tr>
+                        <td colspan="9">No records found</td>
+                    </tr>
+                {% endfor %}
+              <div class="card-footer">
+    <a href="{{ path('app_diagnostic_request_sorted_by_name') }}" class="btn btn-primary">
+        Sort by Name
+    </a>
+</div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

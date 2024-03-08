@@ -1,0 +1,130 @@
+{% extends 'crud.html.twig' %} 
+{# {% extends 'listBlogs.html.twig' %}  #}
+
+{% block title %}<h5 class="card-title">List Blogs!<h5>{% endblock %}
+
+
+
+{% block table %}
+<div class="card">
+  <div class="card-header border-bottom">
+
+
+    <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
+      <div class="col-md-4 user_role">
+       <select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Admin">Admin</option><option value="Author">Author</option><option value="Editor">Editor</option><option value="Maintainer">Maintainer</option><option value="Subscriber">Subscriber</option></select>
+      </div>
+      <div class="col-md-4 user_plan">
+       <select id="UserPlan" class="form-select text-capitalize"><option value=""> Select Speciality </option><option value="Basic">Basic</option><option value="Company">Company</option><option value="Enterprise">Enterprise</option><option value="Team">Team</option></select>
+      </div>
+      <div class="col-md-4 user_status">
+       <select id="FilterTransaction" class="form-select text-capitalize"><option value=""> Select Status </option><option value="Pending" class="text-capitalize">Pending</option><option value="Active" class="text-capitalize">Active</option><option value="Inactive" class="text-capitalize">Inactive</option></select>
+      </div>
+    </div>
+  </div>
+  <div class="card-datatable table-responsive">
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+        <div class="row mx-2">
+            <div class="col-md-2">
+                <div class="me-3">
+                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                        <label>
+                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label>
+                            <input type="search" class="form-control"placeholder="Search.." aria-controls="DataTables_Table_0">
+                        </label>
+                    </div>
+                    <div class="dt-buttons"> 
+                        <button class="dt-button buttons-collection dropdown-toggle btn btn-label-secondary mx-3"tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false">
+                            <span><i class="bx bx-export me-1"></i>Export</span>
+                            <span class="dt-down-arrow">▼</span>
+                        </button> 
+                        {# <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+                            <span><i class="bx bx-plus me-0 me-sm-1"></i>
+                                <span class="d-none d-sm-inline-block">Add New User</span>
+                            </span>
+                        </button>  #}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="datatables-users table border-top">
+        <thead>
+            <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Content</th>
+            <th>Image</th>
+            <th>Submission Date</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td>{{ blog.Title }}</td>
+                <td>{{ blog.subject }}</td>
+                <td>{{ blog.content }}</td>
+                <td>{{ blog.image }}</td>
+                <td>{{ blog.submissionDate ? blog.submissionDate|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}"class="btn btn-outline-info btn-sm me-1"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('app_blog_edit', {'id': blog.id}) }}"class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-edit"></i></a>
+                    {# <a href="{{ include('blog/_delete_form.html.twig') }}"class="btn btn-outline-warning btn-sm me-1"><i class="fas fa-edit"></i></a> #}
+                    {{ include('blog/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+{% endblock %}
+        
+{% block body %}
+    <h1>Latest Blog Posts</h1>
+
+    <div class="container">
+    <div class="row multi-columns-row post-columns">
+
+         {% for blog in blogs %} 
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post">
+                  <div class="post-thumbnail"><a href="#"><img src="{{ blog.image }}" alt="Blog Image"></a></div>
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="{{ path('back_app_blog_index', {'id': blog.id}) }}" class="post-link">{{ blog.title }}</a></h2>
+                    {# <div class="post-meta">By&nbsp;<a href="#">Andy River</a>&nbsp;| 11 November | 4 Comments #}
+                    <div class="post-meta"><a href="#">{{ blog.subject }}</a>
+                    </div>
+                  </div>
+                  <div class="post-entry">
+                    <p>{{ blog.content|slice(0, 200) }}{% if blog.content|length > 200 %}...{% endif %}</p>
+                  </div>
+                  <div class="post-more"><a class="more-link"href="{{ path('app_blog_show', {'id': blog.id}) }}">Read more</a></div>
+                </div>
+              </div>
+         {% else %}
+            <p>No blog posts found</p>
+        {% endfor %} 
+
+    </div>
+    </div>
+
+    <a href="{{ path('app_blog_new') }}">Create new</a>
+{% endblock %}
+

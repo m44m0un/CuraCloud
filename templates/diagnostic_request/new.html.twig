@@ -1,0 +1,71 @@
+{% extends 'BaseBack.html.twig' %}
+
+
+{% block title %} <title>
+New DiagnosticRequest</title>
+{% endblock %}
+
+
+{#{% block body %}
+
+    <h1>Create new DiagnosticRequest</h1>
+
+    {{ include('diagnostic_request/_form.html.twig') }}
+
+    <a href="{{ path('app_diagnostic_request_index') }}">back to list</a> 
+{% endblock %}#}
+
+
+
+{% block body %}
+
+  <div class="main">
+    <section class="module">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+             <h1 style="color: #011663; text-align: center; font-style: italic;">Add new diagnostic</h1>
+             <br><br>
+            <hr class="divider-w mt-10 mb-20">
+            
+         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            {% for fieldName in ['type', 'analyseType', 'radioType', 'doctorNotes', 'status', 'creationDate','id_patient'] %}
+              {% set currentField = form[fieldName] %}
+              <div class="form-group">
+                <label for="{{ currentField.vars.id }}">{{ currentField.vars.label }}</label>
+                {{ form_widget(currentField, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(currentField) }}
+      
+               
+              </div>
+            {% endfor %}
+
+            {##########################################################################}
+            {# andi mochkla houni ki nheb j'affiche fi index2 il ne s'ajoute pas #}
+            {#<a href="{{ path('app_diagnostic_request_index2') }}" class="btn btn-primary">Submit</a>
+             #}
+            <button class="btn btn-primary">Submit</button>
+
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+  </div>
+  <script>
+    // Get the radio buttons and the content container
+    const radioButtons = document.querySelectorAll('input[name="radioType"]');
+    const contentContainer = document.getElementById('contentContainer');
+
+    // Add click event listeners to the radio buttons
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('click', () => {
+            // Update the content container with the selected radio button's value
+            contentContainer.textContent = `Selected option: ${radioButton.value}`;
+        });
+    });
+</script>
+{% endblock %}
