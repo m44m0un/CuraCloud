@@ -1,0 +1,19 @@
+{# templates/stream/streams.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ongoing Streams{% endblock %}
+
+{% block body %}
+    <h1>Ongoing Streams</h1>
+
+    {% if ongoingStreams is empty %}
+        <p>No ongoing streams currently.</p>
+    {% else %}
+        <ul>
+            {% for userId in ongoingStreams %}
+                <li>User ID: {{ userId }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

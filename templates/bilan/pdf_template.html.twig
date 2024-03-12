@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilan PDF</title>
+</head>
+<body>
+    <h1>Bilan Report</h1>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>Realisation Date</th>
+            <th>Result</th>
+            <th>Lab Comment</th>
+            <th>Submission Date</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>{{ bilan.id }}</td>
+            <td>{{ bilan.realisationDate ? bilan.realisationDate|date('Y-m-d') : '' }}</td>
+            <td>{{ bilan.result }}</td>
+            <td>{{ bilan.labComment }}</td>
+            <td>{{ bilan.submissionDate ? bilan.submissionDate|date('Y-m-d') : '' }}</td>
+            <td>{{ bilan.price }}</td>
+        </tr>
+    </table>
+</body>
+</html>

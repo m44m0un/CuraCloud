@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\DiagnosticRequest;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -80,6 +82,15 @@ class DiagnosticRequestType extends AbstractType
                 'label' => 'Creation Date',
         
             ])
+
+           
+
+            ->add('id_patient', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'fullName', // Utilisez la méthode ou le champ qui renvoie le nom complet de l'utilisateur
+                'placeholder' => 'Choisissez un utilisateur', // Message optionnel pour l'option par défaut
+                'invalid_message' => 'Cet utilisateur n\'est pas valide.',
+            ]);
 
           
         ;

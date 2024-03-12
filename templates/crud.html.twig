@@ -2609,7 +2609,7 @@
           </ul>
         </li>
         <!--/ Style Switcher -->
-        
+        {% block notif %}
         <!-- Notification -->
         <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -2795,8 +2795,9 @@
           </ul>
         </li>
         <!--/ Notification -->
-
+        {% endblock %}
         <!-- User -->
+        {% block user %}
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
@@ -2850,6 +2851,7 @@
               </li>
                           </ul>
           </li>
+          {% endblock %}
           <!--/ User -->
         </ul>
       </div>
@@ -2880,8 +2882,8 @@
           <div class="content-left">
             <span>Session</span>
             <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">21,459</h4>
-              <small class="text-success">(+29%)</small>
+              <h4 class="mb-0 me-2">{{nbusers}}</h4>
+              <small class="text-success">(+{{userspercent}}%)</small>
             </div>
             <p class="mb-0">Total Users</p>
           </div>
@@ -2899,9 +2901,9 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Paid Users</span>
+            <span>Banned Users</span>
             <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">4,567</h4>
+              <h4 class="mb-0 me-2">{{nbbannedusers}}</h4>
               <small class="text-success">(+18%)</small>
             </div>
             <p class="mb-0">Last week analytics </p>
@@ -2941,7 +2943,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Pending Users</span>
+            <span>Unverified Users</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">237</h4>
               <small class="text-success">(+42%)</small>
@@ -2964,13 +2966,10 @@
     <h5 class="card-title">Search Filter</h5>
     <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
       <div class="col-md-4 user_role">
-       <select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Admin">Admin</option><option value="Author">Author</option><option value="Editor">Editor</option><option value="Maintainer">Maintainer</option><option value="Subscriber">Subscriber</option></select>
-      </div>
-      <div class="col-md-4 user_plan">
-       <select id="UserPlan" class="form-select text-capitalize"><option value=""> Select Speciality </option><option value="Basic">Basic</option><option value="Company">Company</option><option value="Enterprise">Enterprise</option><option value="Team">Team</option></select>
+       <select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Patient">Patient</option><option value="Doctor">Doctor</option><option value="Pharmacy">Pharmacy</option><option value="Laboratory">Laboratory</option><option value="Radiology">Radiology</option></select>
       </div>
       <div class="col-md-4 user_status">
-       <select id="FilterTransaction" class="form-select text-capitalize"><option value=""> Select Status </option><option value="Pending" class="text-capitalize">Pending</option><option value="Active" class="text-capitalize">Active</option><option value="Inactive" class="text-capitalize">Inactive</option></select>
+       <select id="FilterTransaction" class="form-select text-capitalize"><option value=""> Select Status </option><option value="Active" class="text-capitalize">Active</option><option value="Banned" class="text-capitalize">Banned</option></select>
       </div>
     </div>
   </div>
@@ -3224,6 +3223,10 @@
 <script src="{{asset('back/assets/vendor/libs/cleavejs/cleave-phone.js')}}"></script>
 <script src="{{asset('back/assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
 <script src="{{asset('back/js/myjs.js')}}"></script>
+<script src="{{asset('back/js/metier.js')}}"></script>
+
+
+
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{asset('back/assets/js/maind63d.js?id=6bea3f2e092d5fe7327c226f3242f31b')}}"></script>

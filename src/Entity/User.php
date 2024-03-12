@@ -8,7 +8,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Likes;
+use App\Entity\Blog;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -29,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     #[Assert\Regex(
         pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/",
         message: "Password must have at least 1 (uppercase,lowercase,number,symbol)."
@@ -80,6 +83,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $pharmacytype = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isbanned = null;
+
+    public function __construct()
+    {
+        $this->inscriptionDate= new \DateTime();
+        $this->isbanned= 0;
+        $this->blogs = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->dislikes = new ArrayCollection();
+        $this->streams = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -282,6 +298,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
         return $this;
     }
+
+    public function Isbanned(): ?bool
+    {
+        return $this->isbanned;
+    }
+
+    public function setIsbanned(?bool $isbanned): static
+    {
+        $this->isbanned = $isbanned;
+
+        return $this;
+    }
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -306,4 +334,237 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you want to return the user's id as a string representation
         return strval($this->getId());
     }
+
+        // Dans votre entité User
+    public function getFullName(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+        /////BLOG ASSOCIATION START /////////
+        #[ORM\OneToMany(mappedBy: "author", targetEntity: Blog::class, orphanRemoval: true)]
+        private Collection $blogs;
+    
+        /**
+         * @return Collection<int, Blog>
+         */
+        public function getBlogs(): Collection
+        {
+            return $this->blogs;
+        }
+    
+        public function addBlog(Blog $blog): self
+        {
+            if (!$this->blogs->contains($blog)) {
+                $this->blogs->add($blog);
+                $blog->setAuthor($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeBlog(Blog $blog): self
+        {
+            if ($this->blogs->removeElement($blog)) {
+                // set the owning side to null (unless already changed)
+                if ($blog->getAuthor() === $this) {
+                    $blog->setAuthor(null);
+                }
+            }
+    
+            return $this;
+        }
+    
+    
+    
+        ////// BLOG ASSOCIATION END////////
+    
+    
+    
+        /////LIKE ASSOCIATION START ////////////
+        #[ORM\OneToMany(mappedBy: 'user', targetEntity: Likes::class, orphanRemoval: true)]
+        private Collection $likes;
+    
+    
+        // ... (Existing code)
+    
+        /**
+         * @return Collection<int, Like>
+         */
+        public function getLikes(): Collection
+        {
+            return $this->likes;
+        }
+    
+        public function addLike(Likes $like): self
+        {
+            if (!$this->likes->contains($like)) {
+                $this->likes->add($like);
+                $like->setUser($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeLike(Likes $like): self
+        {
+            if ($this->likes->removeElement($like)) {
+                // set the owning side to null (unless already changed)
+                if ($like->getUser() === $this) {
+                    $like->setUser(null);
+                }
+            }
+    
+            return $this;
+        }
+    
+    
+    
+        ///LIKE ASSOCIATION END/////////
+    
+    
+        ///// DISLIKE ASSOCIATION START ////////////
+        #[ORM\OneToMany(mappedBy: 'user', targetEntity: Dislike::class, orphanRemoval: true)]
+        private Collection $dislikes;
+    
+        // ... (existing code)
+    
+        /**
+         * @return Collection<int, Dislike>
+         */
+        public function getDislikes(): Collection
+        {
+            return $this->dislikes;
+        }
+    
+        public function addDislike(Dislike $dislike): self
+        {
+            if (!$this->dislikes->contains($dislike)) {
+                $this->dislikes->add($dislike);
+                $dislike->setUser($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeDislike(Dislike $dislike): self
+        {
+            if ($this->dislikes->removeElement($dislike)) {
+                // set the owning side to null (unless already changed)
+                if ($dislike->getUser() === $this) {
+                    $dislike->setUser(null);
+                }
+            }
+    
+            return $this;
+        }
+    
+    
+    
+        //////DISLIKE ASSOCIATION END///////
+    
+    
+    
+    
+        /////STREAM ASSOCIATION START/////
+    
+        #[ORM\OneToMany(mappedBy: 'user', targetEntity: Stream::class, orphanRemoval: true)]
+        private Collection $streams;
+    
+    
+        /**
+         * @return Collection<int, Stream>
+         */
+        public function getStreams(): Collection
+        {
+            return $this->streams;
+        }
+    
+        public function addStream(Stream $stream): self
+        {
+            if (!$this->streams->contains($stream)) {
+                $this->streams->add($stream);
+                $stream->setUser($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeStream(Stream $stream): self
+        {
+            if ($this->streams->removeElement($stream)) {
+                // set the owning side to null (unless already changed)
+                if ($stream->getUser() === $this) {
+                    $stream->setUser(null);
+                }
+            }
+    
+            return $this;
+        }
+    
+    
+    
+    
+        /////STREAM ASSOCIATION END ///////////
+    
+    
+        ////MESSAGE STREAM ASSOCIATION /////
+    
+        #[ORM\OneToMany(mappedBy: 'user', targetEntity: MessageStream::class)]
+        private $messages;
+    
+    
+        /**
+         * @return Collection|MessageStream[]
+         */
+        public function getMessages(): Collection
+        {
+            return $this->messages;
+        }
+    
+    
+    
+        /////MESSAGE ASSOCIATION END//////
+    
+    
+    
+        //COMMENTS ASSOCIATION START ////
+    
+        #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comments::class, orphanRemoval: true)]
+    private Collection $comments;
+    
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+    
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setUser($this);
+        }
+    
+        return $this;
+    }
+    
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+    
+        return $this;
+    }
+    
+    
+     //////COMMENTS ASSOCIATION END/////
+        
+    
 }

@@ -39,6 +39,116 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function showUsersSortedByEmail(User $currentUser)
+    {
+        return $this->createQueryBuilder('u')
+        ->select('u.id', 'u.email', 'u.roles', 'u.phoneNumber', 'u.inscriptionDate', 'u.isbanned')
+        ->where('u != :currentUser')
+        ->setParameter('currentUser', $currentUser)
+        ->orderBy('u.email', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findAllUsersWithSpecificFieldsExceptCurrentUserAndRolesStatus(User $currentUser, ?string $role = null, ?string $status = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->select('u.id', 'u.email', 'u.roles', 'u.phoneNumber', 'u.inscriptionDate', 'u.isbanned')
+            ->andWhere('u != :currentUser')
+            ->setParameter('currentUser', $currentUser);
+            
+            if ($role !== null) {
+                $roleConditions = [];
+        
+                // Map role query values to corresponding role conditions
+                $roleMappings = [
+                    'Patient' => 'ROLE_PATIENT',
+                    'Doctor' => 'ROLE_DOCTOR',
+                    'Pharmacy' => 'ROLE_PHARMACY',
+                    'Radiology' => 'ROLE_RADIOLOGY',
+                    'Laboratory' => 'ROLE_LAB',
+                    // Add more mappings as needed
+                ];
+        
+                if (isset($roleMappings[$role])) {
+                    $roleConditions[] = $queryBuilder->expr()->like('u.roles', $queryBuilder->expr()->literal('%' . $roleMappings[$role] . '%'));
+                }
+        
+                // Combine role conditions using OR operator
+                $queryBuilder->andWhere($queryBuilder->expr()->orX(...$roleConditions));
+            }
+        
+            if ($status === "Active" || $status === "Banned") {
+                $isBanned = ($status === "Banned") ? true : false;
+                $queryBuilder->andWhere('u.isbanned = :banned')
+                    ->setParameter('banned', $isBanned);
+            }
+
+        $queryBuilder->orderBy('u.inscriptionDate', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function countBannedUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.isbanned)')
+            ->Where('u.isbanned = :ban')
+            ->setParameter('ban', '1')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getPercentageOfUsersCreatedInCurrentMonth()
+    {
+        $currentDate = new \DateTime();
+        $currentMonth = $currentDate->format('n'); // Get the current month (1-12)
+        $currentYear = $currentDate->format('Y');  // Get the current year
+
+        $startOfMonth = new \DateTime(sprintf('%d-%02d-01 00:00:00', $currentYear, $currentMonth));
+        $endOfMonth = clone $startOfMonth;
+        $endOfMonth->modify('last day of this month')->setTime(23, 59, 59);
+
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('COUNT(u.id) as userCount')
+            ->andWhere($qb->expr()->between('u.inscriptionDate', ':startOfMonth', ':endOfMonth'))
+            ->setParameter('startOfMonth', $startOfMonth)
+            ->setParameter('endOfMonth', $endOfMonth);
+
+        $totalUsers = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $userCount = $qb->getQuery()->getSingleScalarResult();
+
+        // Avoid division by zero
+        $percentage = ($totalUsers > 0) ? round(($userCount / $totalUsers) * 100) : 0;
+
+        return $percentage;
+    }
+    
+    public function findByRoleDoctor(): array
+    {
+        $entityManager = $this->getEntityManager();
+        // Simple LIKE query to find "ROLE_DOCTOR" within the roles column.
+        // Note: This approach has limitations and might falsely match incorrect values if not used carefully.
+        $query = $entityManager->createQuery(
+            'SELECT u FROM App\Entity\User u WHERE u.roles LIKE :role'
+        )->setParameter('role', '%"ROLE_DOCTOR"%');
+
+        return $query->getResult();
+    }
+
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

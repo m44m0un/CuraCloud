@@ -6,6 +6,8 @@
 
 <br><br><br><br><br><br><br><br><br>
     <h1>Bilan index</h1>
+    <input type="text" id="search-input" placeholder="Recherchez...">
+<div id="results-container"></div>
 
     <table class="table">
         <thead>
@@ -16,6 +18,7 @@
                 <th>LabComment</th>
                 <th>SubmissionDate</th>
                 <th>Price</th>
+                <th>PDF</th>
                
             </tr>
         </thead>
@@ -28,6 +31,11 @@
                 <td>{{ bilan.labComment }}</td>
                 <td>{{ bilan.submissionDate ? bilan.submissionDate|date('Y-m-d') : '' }}</td>
                 <td>{{ bilan.price }}</td>
+                <td>
+            <a href="{{ path('app_bilan_generate_pdf', {'id': bilan.id}) }}" class="btn btn-primary">
+                Generate PDF
+            </a>
+        </td>
                
             </tr>
         {% else %}
@@ -37,5 +45,4 @@
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

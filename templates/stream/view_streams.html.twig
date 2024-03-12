@@ -1,0 +1,38 @@
+{% extends 'newbase.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>View Streams</h1>
+
+        {% if activeStreams is not empty %}
+            <div class="row">
+                {% for stream in activeStreams %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <video class="userVideo embed-responsive-item" width="100%" height="auto" autoplay></video>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ stream.title }}</h5>
+                                <p class="card-text">{{ stream.user.firstname ~ ' ' ~ stream.user.lastname }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="{{ path('view_stream', {'streamId': stream.id}) }}" class="btn btn-primary">Join Stream</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No active streams at the moment.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then((stream) => {
+                const userVideos = document.querySelectorAll('.userVideo');
+                userVideos.forEach(video => video.srcObject = stream);
+            });
+    </script>
+{% endblock %}

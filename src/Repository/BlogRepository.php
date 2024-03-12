@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Blog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Blog>
@@ -45,4 +46,26 @@ class BlogRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Search blogs based on title, subject, and author's first and last names.
+     *
+     * @param string|null $searchTerm
+     *
+     * @return \Doctrine\ORM\Query
+     */
+    public function searchBlogsQuery(?string $searchTerm)
+    {
+        $queryBuilder = $this->createQueryBuilder('b');
+
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('b.title LIKE :term OR b.subject LIKE :term')
+                ->orWhere('b.author.firstName LIKE :term OR b.author.lastName LIKE :term')
+                ->setParameter('term', '%' . $searchTerm . '%');
+        }
+
+        return $queryBuilder->getQuery();
+    }
+
 }

@@ -18,7 +18,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: email 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -27,6 +27,10 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+            guard:
+                authenticators:
+                    - App\Security\GoogleAuthenticator
+            entry_point: App\Security\LoginFormAuthenticator  # Specify the entry point here
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -46,7 +50,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/user, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,32 +48,28 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
+        $user = $token->getUser();
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        }
+        // if (in_array('ROLE_PATIENT', $user->getRoles(), true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        // }
+        // if (in_array('ROLE_PHARMACY', $user->getRoles(), true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        // }
+        // if (in_array('ROLE_RADIOLOGY', $user->getRoles(), true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        // }
+        // if (in_array('ROLE_LAB', $user->getRoles(), true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        // }
+        if ($user->Isbanned()) {
+            return new RedirectResponse($this->urlGenerator->generate('app_logout'));
+        }
     }
 
-    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    // {
-    //     // Check if the user has a specific role and redirect accordingly
-    //     if ($token->getUser() instanceof YourCustomUserClass) {
-    //         if ($token->getUser()->isAdmin()) {
-    //             return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
-    //         } elseif ($token->getUser()->isDoctor()) {
-    //             return new RedirectResponse($this->urlGenerator->generate('doctor_dashboard'));
-    //         }
-    //         // Add more role-based checks if needed
-    //     }
-    
-    //     // If no specific role-based redirection, check for a target path
-    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-    //         return new RedirectResponse($targetPath);
-    //     }
-    
-    //     // Default redirection if no specific condition is met
-    //     return new RedirectResponse($this->urlGenerator->generate('app_home'));
-    // }
-    
 
     protected function getLoginUrl(Request $request): string
     {

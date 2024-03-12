@@ -1,5 +1,7 @@
 <?php
 
+// src/Entity/Blog.php
+
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
@@ -48,11 +50,23 @@ class Blog
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $submissionDate = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "blogs")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+  
+    #[ORM\OneToMany(mappedBy: "blog", targetEntity: Likes::class, orphanRemoval: true)]
+    private Collection $likes;
+
     #[ORM\OneToMany(mappedBy: "blogId", targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: "blog", targetEntity: Dislike::class, orphanRemoval: true)]
+    private Collection $dislikes;
+
     public function __construct()
     {
+        $this->likes = new ArrayCollection();
+        $this->dislikes = new ArrayCollection(); // Add this line for the new collection
         $this->comments = new ArrayCollection();
         $this->setSubmissionDateValue(); // Call the method in the constructor
     }
@@ -146,6 +160,50 @@ class Blog
         return $this;
     }
 
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getBlog() === $this) {
+                $like->setBlog(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /////comments 
+
     /**
      * @return Collection<int, Comments>
      */
@@ -166,10 +224,44 @@ class Blog
 
     public function removeComment(Comments $comment): self
     {
-       if ($this->comments->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-if ($comment->getBlogId() === $this) {
+            if ($comment->getBlogId() === $this) {
                 $comment->setBlogId(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /////dislikes
+    
+    
+        /**
+     * @return Collection<int, Dislike>
+     */
+    public function getDislikes(): Collection
+    {
+        return $this->dislikes;
+    }
+
+    public function addDislike(Dislike $dislike): self
+    {
+        if (!$this->dislikes->contains($dislike)) {
+            $this->dislikes->add($dislike);
+            $dislike->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDislike(Dislike $dislike): self
+    {
+        if ($this->dislikes->removeElement($dislike)) {
+            // set the owning side to null (unless already changed)
+            if ($dislike->getBlog() === $this) {
+                $dislike->setBlog(null);
             }
         }
 

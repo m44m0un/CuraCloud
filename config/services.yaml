@@ -4,8 +4,20 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    blog_images_directory: '%kernel.project_dir%/public/images/blogs'
 services:
+    App\EventSubscriber\CalendarSubscriber:
+    App\WebSocketServer:
+        arguments:
+            $publisher: '@mercure.publisher'
+        # Add any specific configuration or arguments if needed
+        # For example:
+        # arguments:
+        #     $someArgument: 'some_value'
+    App\Command\WebsocketServerCommand:
+        arguments:
+            $webSocketServer: '@App\WebSocketServer'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -19,6 +31,12 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+    App\Controller\GoogleController:
+        arguments:
+            $clientRegistry: '@KnpU\OAuth2ClientBundle\Client\ClientRegistry'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    flashy.services:
+        class: 'MercurySeries\FlashyBundle\FlashyNotifier'
+        arguments:
+            $session: '@session'

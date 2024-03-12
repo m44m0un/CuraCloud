@@ -8,7 +8,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-{% block title %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('node_modules/sweetalert2/dist/sweetalert2.min.css') }}">
+    <script src="{{ asset('node_modules/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+  {% block title %}
   <title> CuraCloud </title>
     {% endblock %}
   <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
@@ -20,25 +25,6 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="https://media.discordapp.net/attachments/1199781434030821399/1206316935956930591/LOGO.png?ex=65ee0631&is=65db9131&hm=ebb60ff6418e39aa96b28b0cde8e4928ec7477f74385ad56cd0d94ccc1221d9c&=&format=webp&quality=lossless&width=537&height=537" />
 
-  
-      <!-- Google Tag Manager (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js'
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src =
-        '../../../../www.googletagmanager.com/gtm5445.html?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-5DDHKGP');
-  </script>
-  <!-- End Google Tag Manager -->
     
 {% block css %}
   <!-- Include Styles -->
@@ -56,7 +42,9 @@
 <link rel="stylesheet" href="{{asset('back/assets/css/demob77a.css?id=69dfc5e48fce5a4ff55ff7b593cdf93d')}}" />
 <link rel="stylesheet" href="{{asset('back/assets/vendor/css/pages/front-page74c7.css?id=6ea5e011264576f3de2d3b23d3ddd649')}}" />
 <!-- Vendor Styles -->
-
+<link rel="stylesheet" href="{{asset('back/assets/vendor/libs/fullcalendar/fullcalendar.css')}}"/>
+<link rel="stylesheet" href="{{asset('back/assets/vendor/css/pages/app-calendar.css')}}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 
 <!-- Page Styles -->
 <link rel="stylesheet" href="{{asset('back/assets/vendor/css/pages/front-page-pricing.css')}}" />
@@ -618,9 +606,10 @@
       </div>
     </div>
   </div>
+  {% endblock %}
 </section>
 <!--/ FAQS -->
-{% endblock %}
+
 
 <!-- / Sections:End -->
 
@@ -758,8 +747,6 @@
 </footer>
 <!-- Footer: End -->
   <!--/ Layout Content -->
-
- *
   
 {% block js %}
   <!-- Include Scripts -->
@@ -769,7 +756,11 @@
 <script src="{{asset('back/assets/vendor/js/mega-dropdown.js')}}"></script>
 <script src="{{asset('back/assets/vendor/libs/popper/popper0a73.js?id=baf82d96b7771efbcc05c3b77135d24c')}}"></script>
 <script src="{{asset('back/assets/vendor/js/bootstrapcfc4.js?id=4648227467e3fd3f4cf976cfb0e43aea')}}"></script>
-
+<script src="{{ asset('front/js/custom/script.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{asset('back/assets/vendor/libs/fullcalendar/fullcalendar.js')}}"></script>
+<script src="{{asset('back/assets/js/app-calendar-events.js')}}"></script>
+<script src="{{asset('back/assets/js/app-calendar.js')}}"></script>
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{asset('back/assets/js/front-maind55a.js?id=7e3beea798d1161b84cbf0934a1cd521')}}"></script>

@@ -1,0 +1,109 @@
+{% extends 'newbase.html.twig' %}
+
+{% block stylesheets %}
+    {# Include Bootstrap CSS #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {# Include your custom styles if needed #}
+    <style>
+        /* Add your custom styles here */
+        .message-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-3">Your Stream</h1>
+            <div class="row mt-3">
+            <div class="col-lg-8">
+
+    <video id="userVideo" width="640" height="480" autoplay></video>
+     </div>
+
+                <div class="col-lg-4">
+{# Display existing messages in a scrollable container #}
+<div id="messages" class="message-container mt-3">
+    {% for message in stream.messages %}
+        <p>
+            <strong>{{ message.user.firstName ~ ' ' ~ message.user.lastName }}</strong>:
+            {{ message.content }}
+        </p>
+    {% endfor %}
+</div>
+
+
+
+
+    {# <button id="endStreamBtn">End Stream</button> #}
+    <button id="endStreamBtn" onclick="confirmEndStream('{{ path('end_stream', {'id': user.id}) }}')">End Stream</button>
+
+    <button id="pauseStreamBtn">Pause Stream</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script>
+        const endStreamBtn = document.getElementById('endStreamBtn');
+        const userVideo = document.getElementById('userVideo');
+
+        endStreamBtn.addEventListener('click', async () => {
+            // Using modern async/await to handle the confirmation
+            const confirmEndStream = await Swal.fire({
+                title: 'Are you sure?',
+                text: 'Ending the stream will stop the broadcast.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, end it!'
+            });
+
+            if (confirmEndStream.isConfirmed) {
+                // Stop the local stream
+                const tracks = userVideo.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+
+                // Add your logic to send a request to the server to end the stream
+                sendEndStreamRequest();
+
+                // Redirect to the specified route after ending the stream
+                window.location.href = '{{ path('stream_index') }}';
+            }
+        });
+
+        function sendEndStreamRequest() {
+            // Use AJAX (you can also use fetch) to send a request to the server
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '{{ path('end_stream', {'id': user.id}) }}', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            // Add any additional data you want to send in the request body
+            const requestData = {
+                userId: '{{ user.id }}', // Replace with the actual user ID
+                // Add other data if needed
+            };
+            
+            xhr.send(JSON.stringify(requestData));
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then((stream) => {
+                userVideo.srcObject = stream;
+
+                // Pause Stream button event handler
+                const pauseStreamBtn = document.getElementById('pauseStreamBtn');
+                pauseStreamBtn.addEventListener('click', () => {
+                    // Pause the local stream
+                    const tracks = userVideo.srcObject.getTracks();
+                    tracks.forEach(track => track.enabled = !track.enabled);
+                });
+            })
+            .catch((error) => {
+                console.error('Error accessing camera and microphone:', error);
+            });
+    </script>
+    {# Include Bootstrap JS and Popper.js #}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}

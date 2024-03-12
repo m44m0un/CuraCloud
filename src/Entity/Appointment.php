@@ -55,6 +55,9 @@ class Appointment
     #[ORM\ManyToOne]
     private ?User $id_doctor = null;
 
+    #[ORM\Column]
+    private ?int $Rating = null;
+
 
     public function getId(): ?int
     {
@@ -134,4 +137,25 @@ class Appointment
         return $this;
     }
 
+    public function getRating(): ?int
+    {
+        return $this->Rating;
+    }
+
+    public function setRating(int $Rating): static
+    {
+        $this->Rating = $Rating;
+
+        return $this;
+    }
+    public function getUserName(): ?string
+    {
+        $user = $this->getIdPatient();
+        
+        if ($user) {
+            return $user->getFirstName() . ' ' . $user->getLastName();
+        }
+    
+        return null;
+    }
 }

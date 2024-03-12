@@ -22,8 +22,21 @@
           <tbody class="table-border-bottom-0">
             {% for diagnostic_request in diagnostic_requests %}
             <tr>
-            <td></td>
-            <td></td>
+            <td>
+    {% if diagnostic_request.getIdPatient() is not null %}
+        {{ diagnostic_request.getIdPatient().getFullName() }}
+    {% else %}
+        N/A
+    {% endif %}
+</td>
+
+         <td>
+                        {% if diagnostic_request.idPatient is not null and diagnostic_request.idPatient.phoneNumber is not null %}
+                            {{ diagnostic_request.idPatient.phoneNumber }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
                <td>
                  <h6 class="product-title font-alt">{{ diagnostic_request.analyseType }}</h6>
                  </td>
@@ -72,9 +85,11 @@
  </td>
 
               <td > 
- <a class="dropdown-item" href="{{ path('app_bilan_index2', {'id': diagnostic_request.id}) }}"><i class="product-title font-alt"></i>Resultat</a>
- 
+ {#<a class="dropdown-item" href="{{ path('app_bilan_index2', {'id': diagnostic_request.id}) }}"><i class="product-title font-alt"></i>Resultat</a>#}
+ <a href="{{ path('diagnostic_results', {'id': diagnostic_request.id}) }}">View Results</a>
               </td>
+
+              
             </tr>
             
             {% else %}
@@ -82,6 +97,11 @@
                         <td colspan="9">No records found</td>
                     </tr>
                 {% endfor %}
+              <div class="card-footer">
+    <a href="{{ path('app_diagnostic_request_sorted_by_name') }}" class="btn btn-primary">
+        Sort by Name
+    </a>
+</div>
           </tbody>
         </table>
       </div>

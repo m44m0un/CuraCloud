@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Stream{% endblock %}
+
+{% block body %}
+    <h1>Create a Stream</h1>
+
+    {% include 'stream/_form.html.twig' with {'form': form} %}
+
+    <video id="localVideo" autoplay muted></video>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/startStream.js') }}"></script>
+{% endblock %}

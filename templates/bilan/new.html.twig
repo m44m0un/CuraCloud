@@ -66,13 +66,23 @@
                       {{ form_errors(form.price) }}
                  </div>
                  <br>
+
+                 <div class="col-md-6">
+                <label class="form-label" for="collapsible-state">Upload image</label>
+                    {{form_widget(form.imageFile,{'attr':{'class':'form-control'}})}}
+                      {{ form_errors(form.imageFile) }}
+                 </div>
+
                 <div class="mt-1">
                 <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                {#<a href="{{ path('app_bilan_index2') }}">Submit</a>#}
                 <button type="reset" class="btn btn-label-secondary">Cancel</button>
               </div>
             </div>
           </div>
-              {{ form_end(form) }}
+              {{ form_end(form) }}  
+                
+
         </div>
       </div>
     </div>

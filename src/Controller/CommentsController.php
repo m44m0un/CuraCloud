@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
 
 #[Route('/comments')]
 class CommentsController extends AbstractController
@@ -43,36 +44,42 @@ class CommentsController extends AbstractController
     //     ]);
     // }
     #[Route('/new/{blogId}', name: 'app_comments_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, $blogId): Response
-{
-    // Retrieve the blog using $blogId
-    $blog = $this->getDoctrine()->getRepository(Blog::class)->find($blogId);
-
-    // Create a new comment
-    $comment = new Comments();
-    $comment->setBlogId($blog); // Set the association with the correct blog
-
-    // Handle the form submission
-    $form = $this->createForm(CommentsType::class, $comment);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager->persist($comment);
-        $entityManager->flush();
-
-        // Redirect back to the blog show page after adding a comment
-        return $this->redirectToRoute('app_blog_show', ['id' => $blog->getId()]);
+    public function new(Request $request, EntityManagerInterface $entityManager, $blogId): Response
+    {
+        // Retrieve the blog using $blogId
+        $blog = $this->getDoctrine()->getRepository(Blog::class)->find($blogId);
+    
+        // Create a new comment
+        $comment = new Comments();
+        $comment->setBlogId($blog); // Set the association with the correct blog
+    
+        // Handle the form submission
+        $form = $this->createForm(CommentsType::class, $comment);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Set the user on the comment
+            $user = $this->getUser();
+            $comment->setUser($user);
+    
+            // Persist and flush the comment
+            $entityManager->persist($comment);
+            $entityManager->flush();
+    
+            // Redirect back to the blog show page after adding a comment
+            return $this->redirectToRoute('app_blog_show', ['id' => $blog->getId()]);
+        }
+    
+        // Fetch existing comments for rendering
+        $existingComments = $this->getDoctrine()->getRepository(Comments::class)->findBy(['blogId' => $blogId]);
+    
+        return $this->render('blog/show.html.twig', [
+            'blog' => $blog,
+            'comments' => $existingComments,
+            'form' => $form->createView(),
+        ]);
     }
-
-    // Fetch existing comments for rendering
-    $existingComments = $this->getDoctrine()->getRepository(Comments::class)->findBy(['blogId' => $blogId]);
-
-    return $this->render('blog/show.html.twig', [
-        'blog' => $blog,
-        'comments' => $existingComments,
-        'form' => $form->createView(),
-    ]);
-}
+    
 
 
     #[Route('/{id}', name: 'app_comments_show', methods: ['GET'])]

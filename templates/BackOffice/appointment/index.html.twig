@@ -1,14 +1,20 @@
-{% extends 'Backoffice/base.html.twig' %}
+{% extends 'BaseBack.html.twig' %}
 
-{% block title %}Appointment Index{% endblock %}
+
 
 {% block body %}
 
 <div class="container mt-4">
     <div class="mb-3">
-        <a href="{{ path('admin_app_appointment_new') }}" class="btn btn-primary">
-            <i class="fas fa-plus-circle"></i> Create New Appointment
-        </a>
+<div style="display: flex; justify-content: space-between;">
+
+    <a href="{{ path('admin_appointment_calendar') }}" class="btn btn-primary">
+        <i class="far fa-calendar-alt" style="margin-right: 5px;"></i> Calendar
+    </a>
+ 
+</div>
+
+
     </div>
     <div class="mb-3">
         <form method="GET" action="" class="form-inline">
@@ -24,7 +30,6 @@
         <table class="table table-hover shadow-sm">
             <thead class="thead-dark">
                 <tr>
-                    <th>Patient Name</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th class="text-center">Actions</th>

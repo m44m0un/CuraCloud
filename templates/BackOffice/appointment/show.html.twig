@@ -1,75 +1,69 @@
-{% extends 'Backoffice/base.html.twig' %}
-
-{% block title %}Appointment{% endblock %}
+{% extends 'BaseBack.html.twig' %}
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="mb-4">Appointment Details</h1>
+<h1 class="mb-4">Appointment Details</h1>
 
-    <div class="card">
-        <div class="card-header">
-            Appointment Information
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Appointment #{{ appointment.id }}</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <tbody>                  
-                        <tr>
-                            <th scope="row">Description</th>
-                            <td>{{ appointment.description }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status</th>
-                            <td>
-                                <span style="color:
-                                    {% if appointment.status|lower == 'accepted' %}
-                                        #28a745
-                                    {% elseif appointment.status|lower == 'completed' %}
-                                        #007bff
-                                    {% elseif appointment.status|lower == 'scheduled' %}
-                                        #ffc107
-                                    {% elseif appointment.status|lower == 'cancelled' %}
-                                        #dc3545
-                                    {% else %}
-                                        #6c757d
-                                    {% endif %}
-                                    ">
-                                    {{ appointment.status }}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Start Date</th>
-                            <td>
-                                {% if appointment.startDate %}
-                                    {{ appointment.startDate|date('l, F j, Y, g:i A') }}
-                                {% else %}
-                                    N/A
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">End Date</th>
-                            <td>
-                                {% if appointment.endDate %}
-                                    {{ appointment.endDate|date('l, F j, Y, g:i A') }}
-                                {% else %}
-                                    N/A
-                                {% endif %}
-                            </td>
-                        </tr>
+<!-- Edit button with tooltip -->
+<div class="mb-3">
+    <a href="{{ path('admin_app_appointment_edit', {'id': appointment.id}) }}" class="btn btn-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit this appointment">
+        <i class="fas fa-edit"></i> Edit
+    </a>
 
-                    </tbody>
-                </table>
-            </div>
+    <!-- Back to List button with tooltip -->
+    <a href="{{ path('admin_app_appointment_index') }}" class="btn btn-secondary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Go back to the list of appointments">
+        <i class="fas fa-arrow-left"></i> Back to List
+    </a>
+
+    <!-- Delete button included from another template with tooltip -->
+    {{ include('/BackOffice/appointment/_delete_form.html.twig', {'class': 'd-inline-block', 'button_class': 'btn btn-danger', 'button_text': '<i class="fas fa-trash-alt"></i> Delete', 'tooltip': 'Delete this appointment'}) }}
+</div>
+
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">Appointment #{{ appointment.id }}</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ appointment.description }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>
+                            <span style="color:
+                                {% set status_color = {
+                                    'accepted': '#28a745',
+                                    'completed': '#007bff',
+                                    'scheduled': '#ffc107',
+                                    'cancelled': '#dc3545'
+                                } %}
+                                {{ status_color[appointment.status|lower] ?? '#6c757d' }}">
+                                {{ appointment.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Start Date</th>
+                        <td>{{ appointment.startDate ? appointment.startDate|date('l, F j, Y, g:i A') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">End Date</th>
+                        <td>{{ appointment.endDate ? appointment.endDate|date('l, F j, Y, g:i A') : 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="card-footer d-flex justify-content-between">
-            <a href="{{ path('admin_app_appointment_index') }}" class="btn btn-secondary">Back to List</a>
-            <div>
-                <a href="{{ path('admin_app_appointment_edit', {'id': appointment.id}) }}" class="btn btn-primary">Edit</a>
-                {{ include('/BackOffice/appointment/_delete_form.html.twig') }}
-            </div>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <a href="{{ path('appointment_accept', {'id': appointment.id}) }}" class="btn btn-success me-2" onclick="return confirm('Are you sure you want to accept this appointment?');" data-bs-toggle="tooltip" data-bs-placement="top" title="Accept this appointment">
+                <i class="fas fa-check-circle"></i> Accept
+            </a>
+            <a href="{{ path('appointment_decline', {'id': appointment.id}) }}" class="btn btn-warning me-2" onclick="return confirm('Are you sure you want to decline this appointment?');" data-bs-toggle="tooltip" data-bs-placement="top" title="Decline this appointment">
+                <i class="fas fa-ban"></i> Decline
+            </a>
         </div>
     </div>
 </div>

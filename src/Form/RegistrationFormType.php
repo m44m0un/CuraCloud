@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -35,6 +37,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('captcha',ReCaptchaType::class)
             ->add('birthdate')
             ->add('phoneNumber')
             ->add('gender', ChoiceType::class, [
@@ -140,6 +143,7 @@ class RegistrationForm2Type extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
             ])
+            ->add('captcha',ReCaptchaType::class)
             ->add('certification', FileType::class, [
                 'label' => 'Certification',
                 'required' => True,
@@ -197,7 +201,8 @@ class RegistrationForm3Type extends AbstractType
             ->add('certification', FileType::class, [
                 'label' => 'Certification',
                 'required' => True,
-            ]);
+            ])
+            ->add('captcha',ReCaptchaType::class)
         ;
     }
 
@@ -233,6 +238,7 @@ class RegistrationForm4Type extends AbstractType
             ])
             ->add('phoneNumber')
             ->add('address')
+            ->add('captcha',ReCaptchaType::class)
             ->add('public_or_private', ChoiceType::class, [
                 'choices' => [
                     'public' => 0,
@@ -269,6 +275,7 @@ class RegistrationForm5Type extends AbstractType
         $builder
             ->add('firstName')
             ->add('email')
+            ->add('captcha',ReCaptchaType::class)
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

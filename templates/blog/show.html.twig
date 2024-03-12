@@ -5,58 +5,73 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="post">
-                    <div class="post-thumbnail"><a href="#"><img src="{{ asset('images/blogs/' ~ blog.image) }}" alt="Blog Image"></a></div>
+                    <div class="post-thumbnail">
+                        <a href="#"><img src="{{ asset('images/blogs/' ~ blog.image) }}" alt="Blog Image"></a>
+                    </div>
                     <div class="post-header font-alt">
                         <h1 class="post-title">
                             <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="post-link">
                                 {{ blog.title }}
                             </a>
                         </h1>
-                        <div class="post-meta"><a href="#">{{ blog.subject }}</a></div>
+                        <div class="post-meta">
+                            <a href="#">{{ blog.subject }}</a>
+                        </div>
                     </div>
-                    
+
                     <div class="post-entry">
                         <p>{{ blog.content }}</p>
                     </div>
-                    
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary btn-round" ><a href="{{ path('app_blog_index') }}">Back to Blog List</a></button>
-                        <button class="btn btn-primary btn-round"><a href="{{ path('app_blog_edit', {'id': blog.id}) }}">Edit</a></button>
-                        <br> </br>
-                        {{ include('blog/_delete_form.html.twig') }}
 
-                        {% if is_granted('ROLE_USER') %}
-                            {% set currentUser = app.user %}
-                            {% set liked = false %}
-                            {% for like in blog.likes %}
-                                {% if like.user == currentUser %}
-                                    {% set liked = true %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if liked %}
-                                <form action="{{ path('app_blog_dislike', {'id': blog.id}) }}" method="POST">
-                                    <button type="submit" class="btn btn-primary btn-round">Dislike</button>
-                                </form>
-                            {% else %}
-                                <form action="{{ path('app_blog_like', {'id': blog.id}) }}" method="POST">
-                                    <button type="submit" class="btn btn-primary btn-round">Like ({{ blog.likes|length }})</button>
-                                </form>
-                            {% endif %}
-                        {% endif %}
+                    {# Like/Dislike buttons above the comments section #}
+                    <div class="d-flex justify-content-between">
+                        <h2>Likes & Dislikes Section</h2>
+                        
+                        <form id="likeForm" action="{{ path('app_blog_like', {'id': blog.id}) }}" method="POST">
+                            <button type="button" class="btn btn-primary btn-round" onclick="toggleLike()">Like ({{ blog.likes|length }})</button>
+                        </form>
+
+                        <form id="dislikeForm" action="{{ path('app_blog_dislike', {'id': blog.id}) }}" method="POST">
+                            <button type="button" class="btn btn-primary btn-round" onclick="toggleDislike()">Dislike ({{ blog.dislikes|length }})</button>
+                        </form>
                     </div>
-                    
+
                     <div>
-                        {# Existing comments loop #}
-                        <h2>Comments on this Post</h2>
+{# Existing comments loop #}
+<h2>Comments on this Post</h2>
+
+{# <div class="card-body">
+        <div class="card-title header-elements">
+          <h5 class="m-0 me-2">Card Title</h5>
+          <div class="card-title-elements ms-auto">
+            <span class="badge bg-label-primary rounded-pill">10</span>
+          </div>
+        </div>
+        <p class="card-text">Sample card title with outline badge.</p>
+      </div> #}
+<div >
+    <ul class="list-unstyled">
+        {% for blogComment in blog.comments %}
+        <div class="card bg-primary text-white mb-3">
+            <li class="card-body">
+                {% if blogComment.user %}
+                    {# <img class="mr-3 rounded-circle" src="{{ path_to_your_user_profile_picture(blogComment.user.profilePicture) }}" alt="User Profile Picture"> #}
+                {% else %}
+                    <div class="mr-3 rounded-circle placeholder"></div>
+                {% endif %}
+                <div class="media-body">
+                    <div class="comment-content-container">
+                          <div class="card-title header-elements"><h5 class="m-0 me-2">{{ blogComment.user ? blogComment.user.firstName : 'Anonymous' }} {{ blogComment.user ? blogComment.user.lastName : 'Anonymous' }}</h5></div>
                         
-                        <ul>
-                            {% for blogComment in blog.comments %}
-                                <div class="comment-body">
-                                    <p>{{ blogComment.content }} - {{ blogComment.submissionDate ? blogComment.submissionDate|date('Y-m-d') : '' }}</p>
-                                </div>
-                            {% endfor %}
-                        </ul>
-                        
+                        <p class="card-text">{{ blogComment.content }} - {{ blogComment.submissionDate ? blogComment.submissionDate|date('Y-m-d') : '' }}</p>
+                    </div>
+                </div>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+</div>
+
                         {# New comment form #}
                         {{ include('comments/_form.html.twig') }}
                     </div>
@@ -64,4 +79,14 @@
             </div>
         </div>
     </div>
+
+<script>
+    function toggleLike() {
+        document.getElementById('likeForm').submit();
+    }
+
+    function toggleDislike() {
+        document.getElementById('dislikeForm').submit();
+    }
+</script>
 {% endblock %}

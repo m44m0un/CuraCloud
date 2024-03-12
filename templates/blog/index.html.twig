@@ -3,13 +3,25 @@
 {% block body %}
 
 <div class="container">
+<script src="{{ asset('path/js/search.js') }}"></script>
     <div class="row">
         <div class="col-md-12">
             <h2 class="card-header mb-4">Latest Blog Posts</h2>
         </div>
+
     </div>
+        <!-- New button for launching a stream -->
+        {# <div class="text-center mt-4">
+            <button id="startStreamBtn" class="btn btn-primary" data-user-id="{{ app.user.id }}" data-route="{{ path('stream', {'userId': app.user.id}) }}">Start Stream</button>
+        </div> #}
+
+
+
+
+
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+
         {% for blog in blogs %}
             <div class="col-md-4 mb-3">
                 <div class="card h-100">
@@ -54,5 +66,7 @@
         </nav>
     {% endif %}
 </div>
+    
+
 
 {% endblock %}

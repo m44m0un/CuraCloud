@@ -30,13 +30,13 @@ New DiagnosticRequest</title>
             
          {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-            {% for fieldName in ['type', 'analyseType', 'radioType', 'doctorNotes', 'status', 'creationDate'] %}
+            {% for fieldName in ['type', 'analyseType', 'radioType', 'doctorNotes', 'status', 'creationDate','id_patient'] %}
               {% set currentField = form[fieldName] %}
               <div class="form-group">
                 <label for="{{ currentField.vars.id }}">{{ currentField.vars.label }}</label>
                 {{ form_widget(currentField, {'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(currentField) }}
-                
+      
                
               </div>
             {% endfor %}
@@ -55,4 +55,17 @@ New DiagnosticRequest</title>
     
 
   </div>
+  <script>
+    // Get the radio buttons and the content container
+    const radioButtons = document.querySelectorAll('input[name="radioType"]');
+    const contentContainer = document.getElementById('contentContainer');
+
+    // Add click event listeners to the radio buttons
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('click', () => {
+            // Update the content container with the selected radio button's value
+            contentContainer.textContent = `Selected option: ${radioButton.value}`;
+        });
+    });
+</script>
 {% endblock %}

@@ -1,0 +1,11 @@
+{# templates/stream/create.html.twig or templates/stream/edit.html.twig #}
+
+{# {% extends 'base.html.twig' %} #}
+
+{% block title %}Create Stream{% endblock %}
+
+{% block body %}
+    <h1>Create a Stream</h1>
+
+    {% include 'stream/_form.html.twig' with {'form': form} %}
+{% endblock %}

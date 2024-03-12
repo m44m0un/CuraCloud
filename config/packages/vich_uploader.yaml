@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+    storage: file_system        
+    mappings:
+        resultats:
+            uri_prefix: /image/resultat
+            upload_destination: '%kernel.project_dir%/public/image/resultat'
+            namer: Vich\UploaderBundle\Naming\HashNamer

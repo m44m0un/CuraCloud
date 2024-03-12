@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DiagnosticRequestRepository::class)]
+
 class DiagnosticRequest
 {
     #[ORM\Id]
@@ -28,7 +29,6 @@ class DiagnosticRequest
     #[Assert\NotBlank(message:"Please choose a status.")]
     private ?string $status = null;
 
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $doctorNotes = null;
 
@@ -39,16 +39,17 @@ class DiagnosticRequest
     #[Assert\NotBlank(message:"Please choose a type of radiologie.")]
     private ?string $radioType = null;
 
-    #[ORM\OneToMany(mappedBy: 'idDiagnosticRequest', targetEntity: Bilan::class)]
-    private Collection $idBilan;
-
     #[ORM\OneToMany(mappedBy: 'diagnosticRequest', targetEntity: Bilan::class)]
-    private Collection $id_bilan;
+    private Collection $diagnosticBilans;
+
+    #[ORM\ManyToOne]
+    private ?User $id_patient = null;
+
+
 
     public function __construct()
     {
-        $this->idBilan = new ArrayCollection();
-        $this->id_bilan = new ArrayCollection();
+        $this->diagnosticBilans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,30 +132,56 @@ class DiagnosticRequest
     /**
      * @return Collection<int, Bilan>
      */
-    public function getIdBilan(): Collection
+    public function getDiagnosticBilans(): Collection
     {
-        return $this->idBilan;
+        return $this->diagnosticBilans;
     }
 
-    public function addIdBilan(Bilan $idBilan): static
+    public function addDiagnosticBilan(Bilan $bilan): static
     {
-        if (!$this->idBilan->contains($idBilan)) {
-            $this->idBilan->add($idBilan);
-            $idBilan->setIdDiagnosticRequest($this);
+        if (!$this->diagnosticBilans->contains($bilan)) {
+            $this->diagnosticBilans->add($bilan);
+            // No need to explicitly set the relationship here
         }
 
         return $this;
     }
 
-    public function removeIdBilan(Bilan $idBilan): static
+    public function removeDiagnosticBilan(Bilan $bilan): static
     {
-        if ($this->idBilan->removeElement($idBilan)) {
+        if ($this->diagnosticBilans->removeElement($bilan)) {
             // set the owning side to null (unless already changed)
-            if ($idBilan->getIdDiagnosticRequest() === $this) {
-                $idBilan->setIdDiagnosticRequest(null);
+            if ($bilan->getDiagnosticRequest() === $this) {
+                $bilan->setDiagnosticRequest(null);
             }
         }
 
         return $this;
     }
+
+    public function getIdPatient(): ?User
+    {
+        return $this->id_patient;
+    }
+
+    public function setIdPatient(?User $id_patient): static
+    {
+        $this->id_patient = $id_patient;
+
+        return $this;
+    }
+
+    public function getUserName(): ?string
+{
+    // Vérifiez si l'utilisateur associé existe
+    $user = $this->getIdPatient();
+    
+    // Si l'utilisateur existe, retournez son nom complet (prénom + nom)
+    if ($user) {
+        return $user->getFirstName() . ' ' . $user->getLastName();
+    }
+
+    // Si l'utilisateur n'existe pas, retournez null ou un autre valeur par défaut
+    return null;
+}
 }

@@ -4,8 +4,19 @@
 
 {% block body %}
 
+
+
 <br><br><br><br><br><br><br><br><br>
+<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+ <script src="//code.jquery.com/jquery.js"></script>
+ <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
     <h1>Bilan index</h1>
+{% for message in app.flashes('success') %}
+    <div id="flashy-messages">
+        {{ message }}
+    </div>
+{% endfor %}
+
 
     <table class="table">
         <thead>
@@ -38,8 +49,12 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+
+        
         </tbody>
     </table>
 
     <a href="{{ path('app_bilan_new') }}">Create new</a>
+{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
 {% endblock %}

@@ -1,6 +1,8 @@
 <form id="deleteForm" method="post" action="{{ path('user_app_appointment_delete', {'id': appointment.id}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ appointment.id) }}">
-    <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+<button type="button" id="deleteButton" class="btn btn-danger">
+    <i class="fas fa-trash-alt"></i> Delete
+</button>
 </form>
 <script>
 document.getElementById('deleteButton').addEventListener('click', function() {
